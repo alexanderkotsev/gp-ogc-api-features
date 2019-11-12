@@ -1,4 +1,4 @@
-# Good Practice – Setting up an INSPIRE Download service based on the OGC API-Features standard
+# Setting up an INSPIRE Download service based on the OGC API-Features standard
 
 `Version: 0.1`
 `Date: 2019-11-12`
@@ -11,7 +11,7 @@
     * Main principles
     * OAPIF Conformance classes
     * INSPIRE-specific requirements
-* [Annex A. Abstract Test Suite](ats)
+* [Annex A: Abstract Test Suite](ats)
 * Annex B
 * Annex C
 * Annex D
@@ -28,7 +28,7 @@ Several possible solutions for implementing Download services are already endors
 
 ## Glossary
 
-- Web API - API using an architectural style that is founded on the technologies of the Web [DWBP]
+- Web API - API using an architectural style that is founded on the technologies of the Web [DWBP](https://www.w3.org/TR/dwbp)
 Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C Data on the Web Best Practices provides more detail.
 
 specific API implemented for a data set distribution. Standardisation target of OAPIF
@@ -55,10 +55,10 @@ The following conformance classes are defined:
 
 ### Main principles
 
-- landing page of the web API `(path = /)` corresponds to a distribution of a data set
-- the data set is structured into one or several collections --> all collections available in one API (under the `/collections` path) are considered to be part of the data set served by the API
+- The landing page of the Web API `(path = /)` corresponds to a distribution of an INSPIRE data set
+- The data set is structured into one or several collections --> all collections available in one API (under the `/collections` path) are considered to be part of the data set served by the Web API
 - Every collection contains features of only one spatial object type
-  - NOTE According to the OAPI standard a collection could contain also more than one spatial object type.
+  - NOTE According to the OAPIF standard a collection could contain also more than one spatial object type.
  
 EXAMPLE
 2 data sets (with their own metadata records), one on buildings and one on addresses
@@ -70,7 +70,7 @@ NOT http://my-org.eu/oapif/ - http://my-org.eu/oapif/collections/addresses and h
 
 ### OAPIF conformance classes
 
-REQ: The web API SHALL comply with OAPIF CC Core.
+REQ: The Web API SHALL comply with [OAPIF CC Core]().
 
 TEST: rely on OAPIF CC Core ATS and CITE test.
 
@@ -203,7 +203,16 @@ Reinforce OAPIF REC on providing the  licence link - Recommendation 10 /rec/core
 
 https://github.com/opengeospatial/ogcapi-features
 
+
 ## Annex C: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)
+| IRs for Network Services | OAPIF equivalent|
+| ------------- |:-------------:|
+| col 3 is      | right-aligned |
+| col 2 is      | centered      |
+| zebra stripes | are neat      |
+
 
 
 ## Annex D: An example – link to github page
+
+
