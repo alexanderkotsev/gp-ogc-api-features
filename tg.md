@@ -204,10 +204,11 @@ TEST: Check all collection names. If they have a recognised language neutral nam
 Reinforce OAPIF REC on providing the  licence link - Recommendation 10 /rec/core/fc-md-license and REC to include a licence for the API in the Open API spec.
 
 ## References
-- [Data on the Web Best Practices](https://www.w3.org/TR/dwbp/)
-- [Spatial Data on the Web Best Practices](https://www.w3.org/TR/sdw-bp/)
+- [W3C Data on the Web Best Practices](https://www.w3.org/TR/dwbp/)
+- [W3C Spatial Data on the Web Best Practices](https://www.w3.org/TR/sdw-bp/)
 - [INSPIRE UML-to-GeoJSON encoding rule](https://github.com/INSPIRE-MIF/2017.2/blob/master/GeoJSON/geojson-encoding-rule.md)
 
+# Annexes
 ## Annex A: Abstract Test Suite
 
 - could be done by reference to a repository in the INSPIRE validation Github space
