@@ -63,8 +63,13 @@ The following conformance classes are defined:
 EXAMPLE
 2 data sets (with their own metadata records), one on buildings and one on addresses
 
-http://my-org.eu/addresses/ - http://my-org.eu/addresses/api - http://my-org.eu/addresses/collections
+http://my-org.eu/addresses/
+http://my-org.eu/addresses/api
+http://my-org.eu/addresses/collections
+
 http://my-org.eu/buildings/
+http://my-org.eu/buildings/api
+http://my-org.eu/buildings/collections
 
 NOT http://my-org.eu/oapif/ - http://my-org.eu/oapif/collections/addresses and http://my-org.eu/oapif/collections/buildings
 
@@ -90,19 +95,19 @@ REQ: The Web API SHALL support the `Accept-Language` HTTP header [RFC 7231](http
 
 TEST: Send HTTP request including an accept-language HTTP header for all operations required by this specification and check that no error is returned (HTTP response code 200 OK).
 
-REQ: For the landing page of the web API (/), the web API SHALL include the content-language HTTP header (RFC 7231) in the response.
+REQ: For the landing page of the web API (`/`), the web API SHALL include the content-language HTTP header (RFC 7231) in the response.
 
 TEST: Send HTTP request including an accept-language HTTP header to / and check that a resource is returned (HTTP response code 200 OK) and that the content-language parameter is present in the HTTP header of the response.
 
 OPEN QUESTION: How to retrieve the supported languages from the web API? E.g. using "alternate" links on the landing page and all resources (with a lang parameter) or in the OpenAPI definition? --> TO DO
 
-<pre lang=json>
+```json
 {
   "title": "Buildings in Bonn",
   "description": "Access to data about buildings in the city of Bonn via a Web API that conforms to the OGC API Features specification.",
   "links": [
 	{ "href": "http://data.example.org/",
-  	"rel": "self", "type": "application/json", "title": "this document", <b>"lang": "en"</b>},
+  	"rel": "self", "type": "application/json", "title": "this document", "lang": "en"},
 	{ "href": "http://data.example.org?lang=de",
   	"rel": "alternate", "type": "application/json", "title": "this document in German", "lang": "de" },
 	{ "href": "http://data.example.org/api",
@@ -115,14 +120,14 @@ OPEN QUESTION: How to retrieve the supported languages from the web API? E.g. us
   	"rel": "data", "type": "application/json", "title": "Information about the feature collections" }
   ]
 }
-</pre>
+```
 
 
-REC: For all other operations, оf the requested resources is available in the language specified in the accept-language HTTP header of the request, the web API SHOULD return the requested resource in the requested language, and specify the language in the content-language HTTP header (RFC 7231).
+REC: For all other operations, the requested resources are available in the language specified in the `Accept-Language` HTTP header of the request, the Web API SHOULD return the requested resource in the requested language, and specify the language in the `Content-Language` HTTP header [RFC 7231](https://tools.ietf.org/html/rfc7231).
 
-REQ: The response of the /collections operation SHALL include at least one [only one?] "enclosure" link that allows requesting a representation of the whole data set.
+REQ: The response of the `/collections` operation SHALL include at least one [only one?] "enclosure" link that allows requesting a representation of the whole data set.
 
-TEST: check whether the /collections resource includes at least one "enclosure" link and that a request to all of these links returns a resource (HTTP response code: 200).
+TEST: check whether the `/collections` resource includes at least one "enclosure" link and that a request to each of these links returns a resource (HTTP response code: 200).
 MANUAL TEST: Check that the resource returned is a distribution of the whole data set. (Needed?)
 
 ----------------
@@ -206,7 +211,7 @@ https://github.com/opengeospatial/ogcapi-features
 
 
 ## Annex C: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)
-| IRs for Network Services | OAPIF equivalent|
+| IRs for Network Services | Mapping to OAPIF|
 | ------------- |:-------------:|
 | col 3 is      | right-aligned |
 | col 2 is      | centered      |
