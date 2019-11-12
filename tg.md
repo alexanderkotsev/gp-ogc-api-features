@@ -11,6 +11,7 @@
     * Main principles
     * OAPIF Conformance classes
     * INSPIRE-specific requirements
+* [References](#references)
 * [Annex A: Abstract Test Suite](#abstract-test-suite)
 * Annex B
 * Annex C
