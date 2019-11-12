@@ -20,19 +20,15 @@
 This document proposes a technical approach for implementing an INSPIRE download service based on the newly adopted [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of many possible ways of implementing INSPIRE Download services.
 
 ### Why another download service TG for INSPIRE?
-Several possible solutions for implementing Download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are available that cover ATOM, WFS 2.0, WCS and SOS. While all of these approaches use the Web for providing access to geospatial data, they are not considered developer friendly, and require substantial knowledge of the standard involved. In contrast, the rapid emergence of Web APIs for access to data provide a flexible and easily understandable means for access to data. The W3C DWBP therefore recommends that data are exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs). 
+Several possible solutions for implementing Download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are available that cover ATOM, WFS 2.0, WCS and SOS. While all of these approaches use the Web for providing access to geospatial data, they are not considered developer friendly, and require substantial knowledge of the standard involved. In contrast, the rapid emergence of Web APIs provide a flexible and easily understandable means for access to data. The W3C Data on the Web Best Practices therefore recommends that data are exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs)[DWBP Best Practice 24](https://www.w3.org/TR/dwbp/#APIHttpVerbs). 
 
 ### OGC-API Features - a brief overview
 
 - Very short overview of the main features and ideas behind SDW OGC-API Features  (OAPIF) and how it is different from the other OGC standards used for INSPIRE download services
 
-## Glossary
+## Scope
+This document proposes a technical approach for implementing an INSPIRE download service based on the [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of many possible ways of implementing INSPIRE Download services.
 
-- Web API - API using an architectural style that is founded on the technologies of the Web [DWBP](https://www.w3.org/TR/dwbp)
-Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C Data on the Web Best Practices provides more detail.
-
-specific API implemented for a data set distribution. Standardisation target of OAPIF
-- reuse relevant definitions from OAPIF, add INSPIRE-specific comments where necessary
 
 ## Normative references
 
@@ -40,10 +36,20 @@ specific API implemented for a data set distribution. Standardisation target of 
 - [OpenAPI 3.0](https://swagger.io/docs/specification/about)
 - [IRs for NS]()
 - [IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)
-- [Data on the Web Best Practices](https://www.w3.org/TR/dwbp/)
 - [RFC 7231 - Hypertext Transfer Protocol (HTTP/1.1)](https://tools.ietf.org/html/rfc7231)
 
+## Terms and definitions
+For the purposes of this document, the following terms and definitions apply.
 
+ISO and the European Commission maintain terminological databases at the following addresses:
+- ISO Online browsing platform: available at https://www.iso.org/obp
+- INSPIRE glossary: available at http://inspire.ec.europa.eu/glossary
+
+- Web API - API using an architectural style that is founded on the technologies of the Web [DWBP](https://www.w3.org/TR/dwbp)
+Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C Data on the Web Best Practices provides more detail.
+
+specific API implemented for a data set distribution. Standardisation target of OAPIF
+- reuse relevant definitions from OAPIF, add INSPIRE-specific comments where necessary
 ## Download Services based on OAPIF
 This section describes how to setup a Web API that is compliant with both ‘OGC API – Features’ and INSPIRE requirements for download services. 
 
@@ -196,7 +202,10 @@ TEST: Check all collection names. If they have a recognised language neutral nam
 
 Reinforce OAPIF REC on providing the  licence link - Recommendation 10 /rec/core/fc-md-license and REC to include a licence for the API in the Open API spec.
 
-
+## References
+- [Data on the Web Best Practices](https://www.w3.org/TR/dwbp/)
+- [Spatial Data on the Web Best Practices](https://www.w3.org/TR/sdw-bp/)
+- [INSPIRE UML-to-GeoJSON encoding rule](https://github.com/INSPIRE-MIF/2017.2/blob/master/GeoJSON/geojson-encoding-rule.md)
 
 ## Annex A: Abstract Test Suite
 
