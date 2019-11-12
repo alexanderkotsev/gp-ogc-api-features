@@ -20,7 +20,7 @@
 This document proposes a technical approach for implementing an INSPIRE download service based on the newly adopted [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of many possible ways of implementing INSPIRE Download services.
 
 ### Why another download service TG for INSPIRE?
-Several possible solutions for implementing Download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are made available that cover ATOM, WFS 2.0, WCS and SOS. While all of these approaches use the Web for providing access to geospatial data, they are not considered developer friendly, and require substantial knowledge of the standard involved. In contrast, the rapid emergence of Web APIs for access to data provide a flexible and easily understandable means for access to data. The W3C DWBP therefore recommends that data are exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs). 
+Several possible solutions for implementing Download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are available that cover ATOM, WFS 2.0, WCS and SOS. While all of these approaches use the Web for providing access to geospatial data, they are not considered developer friendly, and require substantial knowledge of the standard involved. In contrast, the rapid emergence of Web APIs for access to data provide a flexible and easily understandable means for access to data. The W3C DWBP therefore recommends that data are exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs). 
 
 ### OGC-API Features - a brief overview
 
@@ -211,13 +211,21 @@ https://github.com/opengeospatial/ogcapi-features
 
 
 ## Annex C: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)
-| IRs for Network Services | Mapping to OAPIF|
+### Predefined access download service
+
+| Service operation | Mapping to OAPIF|
 | ------------- |:-------------:|
-| col 3 is      | right-aligned |
-| col 2 is      | centered      |
-| zebra stripes | are neat      |
+| 1. Get Download Service Metadata | |
+| 2. Get Spatial Dataset | |
+| 3. Describe Spatial Dataset | |
+| 4. Link Download Service | |
+### Direct access download service
 
-
+| Service operation | Mapping to OAPIF|
+| ------------- |:-------------:|
+| 1. Get Spatial Object | |
+| 2. Describe Spatial Object Type | |
+| 3. Link Download Service | |
 
 ## Annex D: An example – link to github page
 
