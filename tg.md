@@ -84,9 +84,9 @@ FUTURE WORK: CC/EXTENSION Filter – might be needed for direct access download 
 
 ### INSPIRE-specific requirements
 
-The web API shall support requests for all resources (/, /api, /collections, /collections/{name}/items, /collections/{name}/items/{id}) in a natural language through HTTP content negotiation.
+The web API shall support requests for all resources (`/`, `/api`, `/collections`, `/collections/{name}/items`, `/collections/{name}/items/{id}`) in a natural language through HTTP content negotiation.
 
-REQ: The web API SHALL support the accept-language HTTP header (RFC 7231) in requests for all resources.
+REQ: The Web API SHALL support the `Accept-Language` HTTP header [RFC 7231](https://tools.ietf.org/html/rfc7231) in requests for all resources.
 
 TEST: Send HTTP request including an accept-language HTTP header for all operations required by this specification and check that no error is returned (HTTP response code 200 OK).
 
@@ -102,9 +102,9 @@ OPEN QUESTION: How to retrieve the supported languages from the web API? E.g. us
   "description": "Access to data about buildings in the city of Bonn via a Web API that conforms to the OGC API Features specification.",
   "links": [
 	{ "href": "http://data.example.org/",
-  	"rel": "self", "type": "application/json", "title": "this document", **"lang": "en"** },
+  	"rel": "self", "type": "application/json", "title": "this document", "lang": "en" },
 	{ "href": "http://data.example.org?lang=de",
-  	"rel": "alternate", "type": "application/json", "title": "this document in German", **"lang": "de"** },
+  	"rel": "alternate", "type": "application/json", "title": "this document in German", "lang": "de" },
 	{ "href": "http://data.example.org/api",
   	"rel": "service-desc", "type": "application/vnd.oai.openapi+json;version=3.0", "title": "the API definition" },
 	{ "href": "http://data.example.org/api.html",
