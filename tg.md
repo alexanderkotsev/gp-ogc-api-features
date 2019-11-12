@@ -1,11 +1,30 @@
 # Good Practice – Setting up an INSPIRE Download service based on the OGC API-Features standard
 
-## Introduction
+`Version: 0.1`
+`Date: 2019-11-12`
 
-###Rationale: why another download services in INSPIRE?
+## Table of Contents
+* [Introduction](#introduction)
+* [Glossary](#glossary)
+* [Normative references](#normative-references)
+* [Download Services based on OAPIF](#oapif-download)
+    * Main principles
+    * OAPIF Conformance classes
+    * INSPIRE-specific requirements
+* [Annex A. Abstract Test Suite](ats)
+* Annex B
+* Annex C
+* Annex D
+
+## Introduction
+This document proposes a technical approach for implementing an INSPIRE download service based on the newly adopted [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of many possible ways of implementing INSPIRE Download services.
+
+### Why another download service TG for INSPIRE?
+Several possible solutions for implementing Download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are made available that cover ATOM, WFS 2.0, WCS and SOS. While all of those approaches use the Web for providing access to geospatial data, they require xxx 
 
 ### OGC-API Features - a brief overview
-- Very short overview of the main features and ideas behind SDW OGC-API Features and how it is different from the other OGC standards used for INSPIRE download services
+
+- Very short overview of the main features and ideas behind SDW OGC-API Features  (OAPIF) and how it is different from the other OGC standards used for INSPIRE download services
 
 ## Glossary
 
@@ -25,19 +44,19 @@ specific API implemented for a data set distribution. Standardisation target of 
 - [RFC 7231 - Hypertext Transfer Protocol (HTTP/1.1)](https://tools.ietf.org/html/rfc7231)
 
 
-## Setting up INSPIRE download services based on OAPIF
-Aim of the section: How to set up a Web API compliant with OGC API – Features and INSPIRE requirements for download services
+## Download Services based on OAPIF
+This section describes how to setup a Web API that is compliant with both ‘OGC API – Features’ and INSPIRE requirements for download services. 
 
-Conformance classes:
+The following conformance classes are defined:
 
-- INSPIRE-pre-defined-dataset-download-OAPIF
-- INSPIRE-direct-access-download-OAPIF (?)
-- INSPIRE-OAPIF-QoS (???)
+1. INSPIRE-pre-defined-dataset-download-OAPIF
+2. INSPIRE-direct-access-download-OAPIF (?)
+3. INSPIRE-OAPIF-QoS (???)
 
 ### Main principles
 
-- landing page of the web API (path = /) corresponds to a distribution of a data set
-- the data set is structured into one or several collections --> all collections available in one API (under the /collections path) are considered to be part of the data set served by the API
+- landing page of the web API `(path = /)` corresponds to a distribution of a data set
+- the data set is structured into one or several collections --> all collections available in one API (under the `/collections` path) are considered to be part of the data set served by the API
 - Every collection contains features of only one spatial object type
   - NOTE According to the OAPI standard a collection could contain also more than one spatial object type.
  
@@ -49,7 +68,7 @@ http://my-org.eu/buildings/
 
 NOT http://my-org.eu/oapif/ - http://my-org.eu/oapif/collections/addresses and http://my-org.eu/oapif/collections/buildings
 
-### Reference to OAPIF conformance classes
+### OAPIF conformance classes
 
 REQ: The web API SHALL comply with OAPIF CC Core.
 
@@ -77,6 +96,7 @@ TEST: Send HTTP request including an accept-language HTTP header to / and check 
 
 OPEN QUESTION: How to retrieve the supported languages from the web API? E.g. using "alternate" links on the landing page and all resources (with a lang parameter) or in the OpenAPI definition? --> TO DO
 
+```json
 {
   "title": "Buildings in Bonn",
   "description": "Access to data about buildings in the city of Bonn via a Web API that conforms to the OGC API Features specification.",
@@ -95,8 +115,9 @@ OPEN QUESTION: How to retrieve the supported languages from the web API? E.g. us
   	"rel": "data", "type": "application/json", "title": "Information about the feature collections" }
   ]
 }
+```
 
-REC: For all other operations, uf the requested resources is available in the language specified in the accept-language HTTP header of the request, the web API SHOULD return the requested resource in the requested langauge, and specify the language in the content-language HTTP header (RFC 7231).
+REC: For all other operations, оf the requested resources is available in the language specified in the accept-language HTTP header of the request, the web API SHOULD return the requested resource in the requested language, and specify the language in the content-language HTTP header (RFC 7231).
 
 REQ: The response of the /collections operation SHALL include at least one [only one?] "enclosure" link that allows requesting a representation of the whole data set.
 
@@ -116,6 +137,7 @@ Finally there are also links to the license information for the building data (u
 
 Reference system information is not provided as the service provides geometries only in the default systems (spatial: WGS 84 longitude/latitude; temporal: Gregorian calendar).
 
+```json
 {
   "links": [
 	{ "href": "http://data.example.org/collections.json",
@@ -154,6 +176,7 @@ Reference system information is not provided as the service provides geometries 
 	}
   ]
 }
+```
 -------------------
 
 REQ: every collection SHALL contain features of only one spatial object type
@@ -178,6 +201,7 @@ Reinforce OAPIF REC on providing the  licence link - Recommendation 10 /rec/core
 
 - Do we need this? Reference to Github repo…
 
+https://github.com/opengeospatial/ogcapi-features
 
 ## Annex C: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)
 
