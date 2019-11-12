@@ -5,13 +5,15 @@
 
 ## Table of Contents
 * [Introduction](#introduction)
-* [Glossary](#glossary)
+* [Scope](#scope)
+* [Conformance](#conformance)
 * [Normative references](#normative-references)
-* [Download Services based on OAPIF](#download-services-based-on-oapif)
-    * Main principles
+* [Terms and definitions](#terms-and-definitions)
+* [INSPIRE Download Services based on OAPIF](#inspire-download-services-based-on-oapif)
+    * [Main principles](#main-principles)
     * OAPIF Conformance classes
     * INSPIRE-specific requirements
-* [References](#references)
+* [Bibliography](#bibliography)
 * [Annex A: Abstract Test Suite](#abstract-test-suite)
 * Annex B
 * Annex C
