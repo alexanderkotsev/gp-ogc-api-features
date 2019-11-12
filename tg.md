@@ -39,7 +39,7 @@ specific API implemented for a data set distribution. Standardisation target of 
 - [OGC API - Features - Part 1: Core](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)
 - [OpenAPI 3.0](https://swagger.io/docs/specification/about)
 - [IRs for NS]()
-- [IRs for ISDSS]()
+- [IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)
 - [Data on the Web Best Practices](https://www.w3.org/TR/dwbp/)
 - [RFC 7231 - Hypertext Transfer Protocol (HTTP/1.1)](https://tools.ietf.org/html/rfc7231)
 
@@ -95,7 +95,7 @@ REQ: The Web API SHALL support the `Accept-Language` HTTP header [RFC 7231](http
 
 TEST: Send HTTP request including an accept-language HTTP header for all operations required by this specification and check that no error is returned (HTTP response code 200 OK).
 
-REQ: For the landing page of the web API (`/`), the web API SHALL include the content-language HTTP header (RFC 7231) in the response.
+REQ: For the landing page of the web API (`/`), the web API SHALL include the content-language HTTP header [RFC 7231](https://tools.ietf.org/html/rfc7231) in the response.
 
 TEST: Send HTTP request including an accept-language HTTP header to / and check that a resource is returned (HTTP response code 200 OK) and that the content-language parameter is present in the HTTP header of the response.
 
@@ -133,13 +133,13 @@ MANUAL TEST: Check that the resource returned is a distribution of the whole dat
 ----------------
 Example 4. Feature collections response document
 
-This feature collections example response in JSON is for a dataset with a single collection "buildings". It includes links to the features resource in all formats that are supported by the service (link relation type: "items").
+This feature collections example response in JSON is for a dataset with a single collection "buildings". It includes links to the features resource in all formats that are supported by the service (link relation type: `items`).
 
-Representations of the resource in other formats are referenced using link relation type "alternate".
+Representations of the resource in other formats are referenced using link relation type `alternate`.
 
-An additional link is to a GML application schema for the dataset - using link relation type "describedBy".
+An additional link is to a GML application schema for the dataset - using link relation type `describedBy`.
 
-Finally there are also links to the license information for the building data (using link relation type "license").
+Finally, there are also links to the license information for the building data (using link relation type `license`).
 
 Reference system information is not provided as the service provides geometries only in the default systems (spatial: WGS 84 longitude/latitude; temporal: Gregorian calendar).
 
@@ -186,11 +186,11 @@ Reference system information is not provided as the service provides geometries 
 -------------------
 
 REQ: every collection SHALL contain features of only one spatial object type
-  - NOTE According to the OAPI standard a collection could contain also more than one spatial object type.
+  - NOTE According to the OAPIF standard a collection could contain also more than one spatial object type.
  
 MANUAL TEST: Check for every collection, that all its spatial objects belong to the same spatial object type.
 
-REQ: For each collections that provides data that has been harmonised according to the IRs on data interoperability, the name of the the collection SHALL be the  language-neutral name of the spatial object type as specified in the IR-ISDSS.
+REQ: For each `collection` that provides data that has been harmonised according to the IRs on data interoperability, the name of the collection SHALL be the  language-neutral name of the spatial object type as specified in the [IR-ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089).
 
 TEST: Check all collection names. If they have a recognised language neutral name, ok. If not -- MANUAL TEST: Check that these collections have not yet been harmonised.
 
