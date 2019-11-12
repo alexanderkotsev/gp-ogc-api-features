@@ -7,11 +7,11 @@
 * [Introduction](#introduction)
 * [Glossary](#glossary)
 * [Normative references](#normative-references)
-* [Download Services based on OAPIF](#oapif-download)
+* [Download Services based on OAPIF](#download-services-based-on-oapif)
     * Main principles
     * OAPIF Conformance classes
     * INSPIRE-specific requirements
-* [Annex A: Abstract Test Suite](ats)
+* [Annex A: Abstract Test Suite](#abstract-test-suite)
 * Annex B
 * Annex C
 * Annex D
@@ -20,7 +20,7 @@
 This document proposes a technical approach for implementing an INSPIRE download service based on the newly adopted [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of many possible ways of implementing INSPIRE Download services.
 
 ### Why another download service TG for INSPIRE?
-Several possible solutions for implementing Download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are made available that cover ATOM, WFS 2.0, WCS and SOS. While all of those approaches use the Web for providing access to geospatial data, they require xxx 
+Several possible solutions for implementing Download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are made available that cover ATOM, WFS 2.0, WCS and SOS. While all of these approaches use the Web for providing access to geospatial data, they are not considered developer friendly, and require substantial knowledge of the standard involved. In contrast, the rapid emergence of Web APIs for access to data provide a flexible and easily understandable means for access to data. The W3C DWBP therefore recommends that data are exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs). 
 
 ### OGC-API Features - a brief overview
 
@@ -96,13 +96,13 @@ TEST: Send HTTP request including an accept-language HTTP header to / and check 
 
 OPEN QUESTION: How to retrieve the supported languages from the web API? E.g. using "alternate" links on the landing page and all resources (with a lang parameter) or in the OpenAPI definition? --> TO DO
 
-```json
+<pre lang=json>
 {
   "title": "Buildings in Bonn",
   "description": "Access to data about buildings in the city of Bonn via a Web API that conforms to the OGC API Features specification.",
   "links": [
 	{ "href": "http://data.example.org/",
-  	"rel": "self", "type": "application/json", "title": "this document", "lang": "en" },
+  	"rel": "self", "type": "application/json", "title": "this document", <b>"lang": "en"</b>},
 	{ "href": "http://data.example.org?lang=de",
   	"rel": "alternate", "type": "application/json", "title": "this document in German", "lang": "de" },
 	{ "href": "http://data.example.org/api",
@@ -115,7 +115,8 @@ OPEN QUESTION: How to retrieve the supported languages from the web API? E.g. us
   	"rel": "data", "type": "application/json", "title": "Information about the feature collections" }
   ]
 }
-```
+</pre>
+
 
 REC: For all other operations, оf the requested resources is available in the language specified in the accept-language HTTP header of the request, the web API SHOULD return the requested resource in the requested language, and specify the language in the content-language HTTP header (RFC 7231).
 
