@@ -20,14 +20,64 @@
 * Annex D
 
 ## Introduction
-This document proposes a technical approach for implementing an INSPIRE download service based on the newly adopted [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of many possible ways of implementing INSPIRE Download services.
+This document proposes a technical approach for implementing an INSPIRE download service based on the newly adopted [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here illustrates an additional option for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj). 
 
 ### Why another download service TG for INSPIRE?
-Several possible solutions for implementing Download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are available that cover ATOM, WFS 2.0, WCS and SOS. While all of these approaches use the Web for providing access to geospatial data, they are not considered developer friendly, and require substantial knowledge of the standard involved. In contrast, the rapid emergence of Web APIs provide a flexible and easily understandable means for access to data. The W3C Data on the Web Best Practices therefore recommends that data are exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs)[DWBP Best Practice 24](https://www.w3.org/TR/dwbp/#APIHttpVerbs). 
+Several possible solutions for implementing download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are available that cover implementations based on ATOM, WFS 2.0, WCS and SOS. While all of these approaches use the Web for providing access to geospatial data, they are not considered developer friendly, and require substantial knowledge of the standard involved. In contrast, the rapid emergence of Web APIs provide a flexible and easily understandable means for access to data. The W3C Data on the Web Best Practices therefore recommends that data be exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs)[DWBP Best Practice 24](https://www.w3.org/TR/dwbp/#APIHttpVerbs). 
 
-### OGC-API Features - a brief overview
+### OGC API - Features - a brief overview
 
-- Very short overview of the main features and ideas behind SDW OGC-API Features  (OAPIF) and how it is different from the other OGC standards used for INSPIRE download services
+OGC API standards define modular API building blocks to spatially enable Web APIs in a consistent way. The OpenAPI specification is used to define the API building blocks.
+
+The OGC API family of standards is organized by resource type. The Open API - Features standard specifies the fundamental API building blocks for interacting with features. The spatial data community uses the term 'feature' for things in the real world that are of interest.
+
+OGC API - Features provides API building blocks to create, modify and query features on the Web. OGC API - Features is comprised of multiple parts, each of them is a separate standard. The "Core" part specifies the core capabilities and is restricted to fetching features where geometries are represented in the coordinate reference system WGS 84 with axis order longitude/latitude. Additional capabilities that address more advanced needs will be specified in additional parts. Examples include support for creating and modifying features, more complex data models, richer queries, additional coordinate reference systems, multiple datasets and collection hierarchies.
+
+By default, every API implementing this standard will provide access to a single dataset. Rather than sharing the data as a complete dataset, the OGC API - Features standards offer direct, fine-grained access to the data at the feature (object) level.
+
+The standard specifies discovery and query operations that are implemented using the HTTP GET method. Support for additional methods (in particular POST, PUT, DELETE, PATCH) will be specified in additional parts.
+
+Discovery operations enable clients to interrogate the API to determine its capabilities and retrieve information about this distribution of the dataset, including the API definition and metadata about the feature collections provided by the API.
+
+Query operations enable clients to retrieve features from the underlying data store based upon simple selection criteria, defined by the client.
+
+The standard defines the resources listed in Table 1. 
+Resource
+Path
+HTTP method
+Document reference
+Landing page
+/
+GET
+7.2 API landing page
+Conformance declaration
+/conformance
+GET
+7.4 Declaration of conformance classes
+Feature collections
+/collections
+GET
+7.13 Feature collections
+Feature collection
+/collections/{collectionId}
+GET
+7.14 Feature collection
+Features
+/collections/{collectionId}/items
+GET
+7.15 Features
+Feature
+/collections/{collectionId}/items/{featureId}
+GET
+7.16 Feature
+
+Implementations of OGC API Features are intended to support two different approaches how clients can use the API.
+
+In the first approach, clients are implemented with knowledge about this standard and its resource types. The clients navigate the resources based on this knowledge and based on the responses provided by the API. The API definition may be used to determine details, e.g., on filter parameters, but this may not be necessary depending on the needs of the client. These are clients that are in general able to use multiple APIs as long as they implement OGC API Features.
+
+The other approach targets developers that are not familiar with the OGC API standards, but want to interact with spatial data provided by an API that happens to implement OGC API Features. In this case the developer will study and use the API definition - typically an OpenAPI document - to understand the API and implement the code to interact with the API. This assumes familiarity with the API definition language and the related tooling, but it should not be necessary to study the OGC API standards.
+
+For a description of the main differences between WFS 2.0 and OGC API - Features, see [this section in the Guide on OGC API - Features](https://github.com/opengeospatial/ogcapi-features/blob/master/guide/section_8_WFS_2_0_v_3_0.adoc)
 
 ## Scope
 This document proposes a technical approach for implementing an INSPIRE download service based on the [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of many possible ways of implementing INSPIRE Download services.
@@ -89,7 +139,7 @@ NOT http://my-org.eu/oapif/ - http://my-org.eu/oapif/collections/addresses and h
 
 TODO insert table containing id, target type and dependencies
 
-#### OAPIF
+#### OAPIF requirements
 
 **REQ001:** The Web API SHALL comply with requirements class http://www.opengis.net/spec/ogcapi-features-1/1.0/req/core.
 
@@ -97,11 +147,11 @@ TEST: rely on OAPIF CC Core ATS and CITE test.
 
 NOTE CRS=WGS84 when returning collections and features through the API. Enclosure link for bulk download could still have a different CRS.
 
-**REC001:** The Web API SHOULD comply with OAPIF CC JSON. [Make this an INSPIRE REQ?]
+**REC001:** The Web API SHOULD comply with OAPIF RC JSON. [Make this an INSPIRE REQ?]
 
-**REC002:** The Web API SHOULD comply with OAPIF CC OpenAPI. [Make this an INSPIRE REQ?]
+**REC002:** The Web API SHOULD comply with OAPIF RC OpenAPI. [Make this an INSPIRE REQ?]
 
-FUTURE WORK: CC/EXTENSION Filter – might be needed for direct access download services
+FUTURE WORK: RC/EXTENSION Filter – might be needed for direct access download services
 
 #### INSPIRE-specific requirements
 
@@ -160,81 +210,43 @@ Finally, there are also links to the license information for the building data (
 Reference system information is not provided as the service provides geometries only in the default systems (spatial: WGS 84 longitude/latitude; temporal: Gregorian calendar).
 
 ```json
-{ 
-   "links":[ 
-      { 
-         "href":"http://data.example.org/collections.json",
-         "rel":"self",
-         "type":"application/json",
-         "title":"this document"
-      },
-      { 
-         "href":"http://data.example.org/collections.html",
-         "rel":"alternate",
-         "type":"text/html",
-         "title":"this document as HTML"
-      },
-      { 
-         "href":"http://schemas.example.org/1.0/buildings.xsd",
-         "rel":"describedBy",
-         "type":"application/xml",
-         "title":"GML application schema for Acme Corporation building data"
-      },
-      { 
-         "href":"http://download.example.org/buildings.gpkg",
-         "rel":"enclosure",
-         "type":"application/geopackage+sqlite3",
-         "title":"Bulk download (GeoPackage)",
-         "length":472546
-      }
-   ],
-   "collections":[ 
-      { 
-         "id":"buildings",
-         "title":"Buildings",
-         "description":"Buildings in the city of Bonn.",
-         "extent":{ 
-            "spatial":{ 
-               "bbox":[ 
-                  [ 
-                     7.01,
-                     50.63,
-                     7.22,
-                     50.78
-                  ]
-               ]
-            },
-            "temporal":{ 
-               "interval":[ 
-                  [ 
-                     "2010-02-15T12:34:56Z",
-                     null
-                  ]
-               ]
-            }
-         },
-         "links":[ 
-            { 
-               "href":"http://data.example.org/collections/buildings/items",
-               "rel":"items",
-               "type":"application/geo+json",
-               "title":"Buildings"
-            },
-            { 
-               "href":"https://creativecommons.org/publicdomain/zero/1.0/",
-               "rel":"license",
-               "type":"text/html",
-               "title":"CC0-1.0"
-            },
-            { 
-               "href":"https://creativecommons.org/publicdomain/zero/1.0/rdf",
-               "rel":"license",
-               "type":"application/rdf+xml",
-               "title":"CC0-1.0"
-            }
-         ]
-      }
-   ]
+{
+  "links": [
+	{ "href": "http://data.example.org/collections.json",
+  	"rel": "self", "type": "application/json", "title": "this document" },
+	{ "href": "http://data.example.org/collections.html",
+  	"rel": "alternate", "type": "text/html", "title": "this document as HTML" },
+	{ "href": "http://schemas.example.org/1.0/buildings.xsd",
+  	"rel": "describedBy", "type": "application/xml", "title": "GML application schema for Acme Corporation building data" },
+	{ "href": "http://download.example.org/buildings.gpkg",
+  	"rel": "enclosure", "type": "application/geopackage+sqlite3", "title": "Bulk download (GeoPackage)", "length": 472546 }
+  ],
+  "collections": [
+	{
+  	"id": "buildings",
+  	"title": "Buildings",
+  	"description": "Buildings in the city of Bonn.",
+  	"extent": {
+    	"spatial": {
+      	"bbox": [ [ 7.01, 50.63, 7.22, 50.78 ] ]
+    	},
+    	"temporal": {
+      	"interval": [ [ "2010-02-15T12:34:56Z", null ] ]
+    	}
+  	},
+  	"links": [
+    	{ "href": "http://data.example.org/collections/buildings/items",
+      	"rel": "items", "type": "application/geo+json",
+      	"title": "Buildings" },
+    	{ "href": "https://creativecommons.org/publicdomain/zero/1.0/",
+      	"rel": "license", "type": "text/html",
+      	"title": "CC0-1.0" },
+    	{ "href": "https://creativecommons.org/publicdomain/zero/1.0/rdf",
+      	"rel": "license", "type": "application/rdf+xml",
+      	"title": "CC0-1.0" }
+  	]
+	}
+  ]
 }
 ```
 -------------------
