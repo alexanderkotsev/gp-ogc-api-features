@@ -11,13 +11,15 @@
 * [Terms and definitions](#terms-and-definitions)
 * [INSPIRE Download Services based on OAPIF](#inspire-download-services-based-on-oapif)
     * [Main principles](#main-principles)
-    * OAPIF Conformance classes
-    * INSPIRE-specific requirements
+    * Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”
+        * [OAPIF requirements](#oapif-requirements)
+        * [INSPIRE-specific requirements](#inspire-specific-requirements)
+    * Requirements class “INSPIRE-direct-access-download-OAPIF”
+    * Requirements class “INSPIRE OAPIF JSON”
 * [Bibliography](#bibliography)
 * [Annex A: Abstract Test Suite](#abstract-test-suite)
-* Annex B
-* Annex C
-* Annex D
+* Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)
+* Annex C: Examples
 
 ## Introduction
 This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the newly adopted [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). 
@@ -101,10 +103,11 @@ NOT http://my-org.eu/oapif/ - http://my-org.eu/oapif/collections/addresses  and 
 - Every collection contains features of only one spatial object type
   - NOTE According to the OAPIF standard a collection could contain also more than one spatial object type.
 
-|INSPIRE resources|OAPIF resource|Example path|Document reference(?)|
-|Data set (distributions)|Landing page|http://my-org.eu/addresses/ <br> http://my-org.eu/buildings/|7.2 API landing page|
-|Data set description|Feature collections|
-|Spatial object type|Feature collection|http://my-org.eu/addresses/collections/address|7.14 Feature collection|
+| INSPIRE resources | OAPIF resource | Example path | Document reference(?) |
+| ------------- | ------------- | ------------- |-------------: |
+| Data set (distributions) | Landing page | http://my-org.eu/addresses/ <br> http://my-org.eu/buildings/ |7.2 API landing page |
+| Data set description | Feature collections |
+| Spatial object type | Feature collection | http://my-org.eu/addresses/collections/address | 7.14 Feature collection |
 ...
 
 Resource
@@ -305,6 +308,7 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 | 1. Get Spatial Object | |
 | 2. Describe Spatial Object Type | |
 | 3. Link Download Service | |
+
 TO DO: Include a mapping table for the NS metadata elements to OpenAPI
 
 Resource Title (M)
