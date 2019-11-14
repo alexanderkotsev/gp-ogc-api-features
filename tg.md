@@ -309,25 +309,28 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 | 2. Describe Spatial Object Type | |
 | 3. Link Download Service | |
 
-TO DO: Include a mapping table for the NS metadata elements to OpenAPI
+# Annex C: Mapping between INSPIRE NS Metadata elements and OpenAPI definition fields
+### Network Services metadata
 
-Resource Title (M)
-Resource Abstract (M)
+| INSPIRE NS Metadata element | OpenAPI field names |
+| ------------ | ------------ |
+Resource Title (M) | info/title
+Resource Abstract (M) | info/description
 Resource Type (M)
-Resource Locator (C)
-Coupled Resource (C)
-Spatial Data Service Type (M)
-Keyword (M)
+Resource Locator (C) | info/x-resource-locator
+Coupled Resource © info/x-coupled-resource
+Spatial Data Service Type (M) info/x-spatial-data-service-type
+Keyword (M) | 
 Geographic Bounding Box (M)
 Temporal Reference (M)
 Spatial Resolution (C)
 Conformity* (M)
-Conditions for Access and Use (M)
-Limitations on Public Access (M)
-Responsible Organisation (M)
-Metadata Point of Contact (M)
-Metadata Date (M)
-Metadata Language (M)
+Conditions for Access and Use (M) | info/termsOfService or info/license
+Limitations on Public Access (M) | info/termsOfService or info/license
+Responsible Organisation (M) info/contact/name
+Metadata Point of Contact (M) | info/contact/name
+Metadata Date (M) info/x-metadata-date
+Metadata Language (M) info/x-metadata-language
 Unique Resource Identifier (M)
 
 # Annex C: Examples
