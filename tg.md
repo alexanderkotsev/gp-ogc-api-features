@@ -316,10 +316,10 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 | ------------ | ------------ |
 Resource Title (M) | info/title
 Resource Abstract (M) | info/description
-Resource Type (M)
-Resource Locator (C) | info/x-resource-locator
-Coupled Resource © info/x-coupled-resource
-Spatial Data Service Type (M) info/x-spatial-data-service-type
+Resource Type (M) |
+Resource Locator (C) | 
+Coupled Resource ©
+Spatial Data Service Type (M) 
 Keyword (M) | 
 Geographic Bounding Box (M)
 Temporal Reference (M)
@@ -329,8 +329,8 @@ Conditions for Access and Use (M) | info/termsOfService or info/license
 Limitations on Public Access (M) | info/termsOfService or info/license
 Responsible Organisation (M) info/contact/name
 Metadata Point of Contact (M) | info/contact/name
-Metadata Date (M) info/x-metadata-date
-Metadata Language (M) info/x-metadata-language
+Metadata Date (M) 
+Metadata Language (M) 
 Unique Resource Identifier (M)
 
 # Annex C: Examples
