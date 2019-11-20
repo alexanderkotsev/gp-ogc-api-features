@@ -312,13 +312,14 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 # Annex C: Mapping between INSPIRE NS Metadata elements and OpenAPI definition fields
 ### Network Services metadata
 
+
 | INSPIRE NS Metadata element | OpenAPI field names |
 | ------------ | ------------ |
 Resource Title (M) | info/title
 Resource Abstract (M) | info/description
 Resource Type (M) |
 Resource Locator (C) | 
-Coupled Resource ©
+Coupled Resource (C) | 
 Spatial Data Service Type (M) 
 Keyword (M) | 
 Geographic Bounding Box (M)
@@ -333,5 +334,11 @@ Metadata Date (M)
 Metadata Language (M) 
 Unique Resource Identifier (M)
 
+--- 
+**NOTE**
+
+Additional metadata elements can be added to an OpenAPI definition through the introduction of fields beginning with `x-`. However, in order to streamline the implementation of 
+
+--- 
 # Annex C: Examples
 Link to github page
