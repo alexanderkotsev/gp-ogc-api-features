@@ -12,15 +12,15 @@
 * [Symbols and abbreviated terms](#symbols-and-abbreviated-terms)
 * [INSPIRE Download Services based on OAPIF](#inspire-download-services-based-on-oapif)
     * [Main principles](#main-principles)
-    * [Requirements class INSPIRE-pre-defined-dataset-download-OAPIF](#pre-defined)
+    * [Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”](#pre-defined)
         * [OAPIF requirements](#oapif-requirements)
         * [INSPIRE-specific requirements](#inspire-specific-requirements)
     * Requirements class “INSPIRE-direct-access-download-OAPIF”
     * Requirements class “INSPIRE OAPIF JSON”
 * [Bibliography](#bibliography)
-* [Annex A: Abstract Test Suite](#abstract-test-suite)
-* Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)
-* Annex C: Examples
+* [Annex A: Abstract Test Suite](#ats)
+* [Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)](#ir2oapif)
+* [Annex C: Examples](#examples)
 
 ## Introduction
 This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the newly adopted [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). 
@@ -59,7 +59,6 @@ The target of all requirements classes are “Web APIs”.
 TODO Add sth about dependencies between the requirements classes.
 
 Conformance with this specification shall be assessed using all the relevant conformance test cases specified in Annex A (normative) of this specification.
-
 ## Normative references
 
 - [OGC API - Features - Part 1: Core] (http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)
@@ -152,7 +151,7 @@ Feature
 GET
 7.16 Feature
  
-### Requirements class "INSPIRE-pre-defined-dataset-download-OAPIF" <a name="pre-defined"></a>
+### Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”  <a name="pre-defined"></a>
 
 | Requirements class | http://inspire.ec.europa.eu/id/spec/oapif-download/1.0 |
 | --- | --- |
@@ -378,7 +377,7 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 - [SO1] [How to properly send 406 status code?](https://stackoverflow.com/questions/4422980/how-to-properly-send-406-status-code)
 - [SO2] [Format for 406 Not Acceptable payload?](https://stackoverflow.com/questions/50102277/format-for-406-not-acceptable-payload)
 
-# Annex A: Abstract Test Suite
+# Annex A: Abstract Test Suite <a name="ats"></a>
 
 ## Conformance class “INSPIRE-pre-defined-dataset-download-OAPIF”
 
@@ -399,7 +398,7 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 
 **Notes**:
 
-# Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)
+# Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions) <a name="ir2oapif"></a>
 ## Predefined access download service
 
 | Service operation | Mapping to OAPIF|
@@ -510,5 +509,5 @@ Unique Resource Identifier (M)
 Additional metadata elements can be added to an OpenAPI definition through [extensions](https://swagger.io/docs/specification/openapi-extensions/), implemented through the introduction of fields beginning with `x-`. However, in order to streamline the implementation of metadata, this document does not propose any INSPIRE-specific extensions. 
 
 --- 
-# Annex C: Examples
+# Annex C: Examples <a name="examples"></a>
 Link to github page
