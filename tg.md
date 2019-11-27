@@ -73,8 +73,8 @@ Conformance with this specification shall be assessed using all the relevant con
 For the purposes of this document, the following terms and definitions apply.
 
 ISO and the European Commission maintain terminological databases at the following addresses:
-- ISO Online browsing platform: available at https://www.iso.org/obp
-- INSPIRE glossary: available at http://inspire.ec.europa.eu/glossary
+- [ISO Online browsing platform](https://www.iso.org/obp)
+- [INSPIRE glossary](http://inspire.ec.europa.eu/glossary)
 
 - Web API - API using an architectural style that is founded on the technologies of the Web [DWBP](https://www.w3.org/TR/dwbp)
 Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C Data on the Web Best Practices provides more detail.
@@ -89,11 +89,14 @@ Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C D
 - Content negotiation [RFC 7231]
 - Encoding (rule) [ISO 19118?]
 ## Symbols and abbreviated terms
-API	Application Programming Interface
-DCAT	Data Catalog Vocabulary
-JSON	JavaScript Object Notation
-OAPIF	OGC API - Features
-URL	Uniform Resource Locator
+| Abbreviation | Term |
+| --- | --- |
+| API |	Application Programming Interface |
+| DCAT | 	Data Catalog Vocabulary |
+| JSON | 	JavaScript Object Notation |
+| OAPIF	| OGC API - Features |
+| URL |	Uniform Resource Locator |
+| WFS | Web Feature Service |
 ## INSPIRE Download Services based on OAPIF
 This section describes the requirements a Web API must fulfill in order to be compliant with both ‘OGC API – Features’ and INSPIRE requirements for download services.
 ### Main principles
@@ -404,7 +407,7 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 | 3. Describe Spatial Dataset | |
 | 4. Link Download Service | |
 ### Supported languages
-According to [RFC 2616]:
+According to [RFC 7231]:
 
 >   The 406 (Not Acceptable) status code indicates that the target resource does not have a current representation that would be acceptable to the user agent, according to the proactive negotiation header fields received in the request (Section 5.3), and the server is unwilling to supply a default representation.
 
@@ -454,6 +457,7 @@ Content-Language: en
 {
     "type": "https://example.com/to/be/decided",
     "title": "Not acceptable",
+    "status": 406,
     "detail": "This server supports the following languages: English, Danish.",
     "instance": "/collections",
     "acceptable_languages": [ "en", "da" ]
