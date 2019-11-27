@@ -9,9 +9,10 @@
 * [Conformance](#conformance)
 * [Normative references](#normative-references)
 * [Terms and definitions](#terms-and-definitions)
+* [Symbols and abbreviated terms](#symbols-and-abbreviated-terms)
 * [INSPIRE Download Services based on OAPIF](#inspire-download-services-based-on-oapif)
     * [Main principles](#main-principles)
-    * Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”
+    * [Requirements class INSPIRE-pre-defined-dataset-download-OAPIF](#pre-defined)
         * [OAPIF requirements](#oapif-requirements)
         * [INSPIRE-specific requirements](#inspire-specific-requirements)
     * Requirements class “INSPIRE-direct-access-download-OAPIF”
@@ -58,6 +59,7 @@ The target of all requirements classes are “Web APIs”.
 TODO Add sth about dependencies between the requirements classes.
 
 Conformance with this specification shall be assessed using all the relevant conformance test cases specified in Annex A (normative) of this specification.
+
 ## Normative references
 
 - [OGC API - Features - Part 1: Core] (http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)
@@ -150,7 +152,7 @@ Feature
 GET
 7.16 Feature
  
-### Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”
+### Requirements class "INSPIRE-pre-defined-dataset-download-OAPIF" <a name="pre-defined"></a>
 
 | Requirements class | http://inspire.ec.europa.eu/id/spec/oapif-download/1.0 |
 | --- | --- |
@@ -456,7 +458,7 @@ Content-Language: en
 
 {
     "type": "https://example.com/to/be/decided",
-    "title": "Not acceptable",
+    "title": "Not Acceptable",
     "status": 406,
     "detail": "This server supports the following languages: English, Danish.",
     "instance": "/collections",
