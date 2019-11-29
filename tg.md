@@ -51,13 +51,12 @@ This document proposes a technical approach for implementing the requirements se
 The approach described here is not legally binding and shows one of several ways of implementing INSPIRE Download services.
 
 ## Conformance
-This specification defines three requirements classes:
+This specification defines the following requirements classes:
 1. INSPIRE-pre-defined-dataset-download-OAPIF (mandatory)
 2. INSPIRE-direct-access-download-OAPIF (?) (optional)
 3. INSPIRE-multilinguality (optional)
 4. INSPIRE-OAPIF-JSON (optional)
 5. INSPIRE-OAPIF-QoS (???) (mandatory)
-
 
 
 The target of all requirements classes are “Web APIs”.
@@ -303,7 +302,7 @@ For every response, validate that the HTTP status code is 200.
 Issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to the following URLs: {root}/ and {root}/collections. For every feature collection identified in step 1, issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to {root}/collections/{collectionId} and {root}/collections/{collectionId}/items.
 For every response, validate that the HTTP status code is 406.
 
-QUESTION: How to test for /collections/{collectionId}/items/{featureId}? It would give way too much overhead to test every single feature. One feature? One feature in every collection?
+&#x1F538; OPEN QUESTION: How to test for /collections/{collectionId}/items/{featureId}? It would give way too much overhead to test every single feature. One feature? One feature in every collection?
 
 **REQ002:** The Web API SHALL include the `Content-Language` HTTP header in the response for a request to its landing page (/).
 
@@ -317,7 +316,7 @@ Validate that a response is returned with a `Content-Language` HTTP header.
 
 ##### Internationalization: supported languages
 
-QUESTION: Would the proposed approach based on HTTP standards be easily implementable by solutions. 
+&#x1F538; OPEN QUESTION: Would the proposed approach based on HTTP standards be easily implementable by solutions. 
 
 [RFC 2616] does not define what such a response body exactly should look like, see also Annex B, and no other existing specifications have been identified that define this. As one of the principles in this specification is not to have any INSPIRE-specific extensions or requirements, this specification therefore does not give a stronger recommendation than REC00x. This specification may be updated when the response body returned with HTTP status code 406 is standardised.
 
@@ -362,7 +361,7 @@ Recommendation 2 of OGC API - Features - Part 1, regarding the support of HTTP m
 REQ00x and REC00x regarding support for Accept-Language and Content-Languages
 
 
-OPEN QUESTION: Do you have any other proposals for how to implement the requirement for the download service to advertise the natural languages it supports?
+&#x1F538; OPEN QUESTION: Do you have any other proposals for how to implement the requirement for the download service to advertise the natural languages it supports?
 
 ### Requirements class “INSPIRE-direct-access-download-OAPIF” <a name="req-inspire-direct"></a>
 
@@ -447,7 +446,7 @@ Metadata Date (M)
 Metadata Language (M) 
 Unique Resource Identifier (M)
 
-OPEN QUESTION: Would a lightweight mapping to OpenAPI i.e. without extensions of OpenAPI terms (terms beginning with ‘x-’ in accordance with the [OpenAPI specs](https://swagger.io/docs/specification/openapi-extensions)) be sufficient?
+&#x1F538; OPEN QUESTION: Would a lightweight mapping to OpenAPI i.e. without extensions of OpenAPI terms (terms beginning with ‘x-’ in accordance with the [OpenAPI specs](https://swagger.io/docs/specification/openapi-extensions)) be sufficient?
 
 --- 
 **NOTE**
@@ -488,7 +487,7 @@ Content-Type: application/json
 
 If [RFC 7808] is to be used, the problem details object would have to be extended with additional members.
 
-OPEN QUESTION: Would the approach discussed in  https://github.com/opengeospatial/oapi_common/issues/75 be a good way of dealing with errors (incl. INSPIRE-specific ones).
+&#x1F538; OPEN QUESTION: Would the approach discussed in  https://github.com/opengeospatial/oapi_common/issues/75 be a good way of dealing with errors (incl. INSPIRE-specific ones).
 
 ```
 # Request
