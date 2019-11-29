@@ -53,6 +53,7 @@ This specification defines three requirements classes:
 2. INSPIRE-direct-access-download-OAPIF (?) (optional)
 3. INSPIRE-OAPIF-QoS (???) (mandatory)
 4. INSPIRE-OAPIF-JSON (optional)
+5. INSPIRE-multilinguality (optional)
 
 The target of all requirements classes are “Web APIs”.
 
@@ -102,7 +103,7 @@ Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C D
 This section describes the requirements a Web API must fulfill in order to be compliant with both ‘OGC API – Features’ and INSPIRE requirements for download services.
 ### Main principles
 
-- The landing page of the Web API `(path = /)` corresponds to a distribution of one INSPIRE data set
+- The Web API provides download access to one INSPIRE data set.
 
 EXAMPLE two data sets (with their own metadata records), one on buildings and one on addresses - two landing pages
 
@@ -192,6 +193,7 @@ For every response, validate that the HTTP status code is 200.
 Issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to the following URLs: {root}/ and {root}/collections. For every feature collection identified in step 1, issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to {root}/collections/{collectionId} and {root}/collections/{collectionId}/items.
 For every response, validate that the HTTP status code is 406.
 
+QUESTION: How to test for /collections/{collectionId}/items/{featureId}? It would give way too much overhead to test every single feature. One feature? One feature in every collection?
 
 **REQ004:** The Web API SHALL include the `Content-Language` HTTP header in the response for a request to its landing page (/).
 
@@ -204,6 +206,8 @@ Validate that a response is returned with a `Content-Language` HTTP header.
 **REC00x:** The Web API SHOULD take the language specified in the `Accept-Language` HTTP header of a request to all paths into account. The Web API SHOULD include the `Content-Language` HTTP header in the response for a request to all paths.
 
 ##### Internationalization: supported languages
+
+QUESTION: Would the proposed approach based on HTTP standards be easily implementable by solutions. 
 
 [RFC 2616] does not define what such a response body exactly should look like, see also Annex B, and no other existing specifications have been identified that define this. As one of the principles in this specification is not to have any INSPIRE-specific extensions or requirements, this specification therefore does not give a stronger recommendation than REC00x. This specification may be updated when the response body returned with HTTP status code 406 is standardised.
 
@@ -248,16 +252,12 @@ Recommendation 2 of OGC API - Features - Part 1, regarding the support of HTTP m
 REQ00x and REC00x regarding support for Accept-Language and Content-Languages
 
 
-**REQ005** The Web API shall support HTTP HEAD requests for the landing page (/), /collections and /collections/{id} including `Accept-Language` HTTP headers.
-
-OPEN QUESTION: Also include /api and /conformance paths here? 
-
 OPEN QUESTION: Do you have any other proposals for how to implement the requirement for the download service to advertise the natural languages it supports?
 
 
 ##### Download of the whole data set
 
-**REQ00x:** The response of the `/collections` operation SHALL include at least one [only one?] "enclosure" link that allows requesting a representation of the whole data set.
+**REQ00x:** The response of the `/collections` operation SHALL include at least one "enclosure" link that allows requesting a representation of the whole data set.
 
 TEST:
 
@@ -266,29 +266,26 @@ Validate that at least one of the links returned in the response has `rel` link 
 For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, issue an HTTP HEAD request to the path given in the `href` link parameter of that link.
 For each of the responses:
 If the HTTP status code is 405 (Method Not Allowed), the test verdict is inclusive.
-If HTTP status code 200 is returned, the test verdict is “pass”.
+If HTTP status code 200 is returned and content length > 0, the test verdict is “pass”.
 Otherwise, the test verdict is “fail”.
 
-
-MANUAL TEST: Check that the resource returned is a distribution of the whole data set. (Needed?)
 
 **REQ00x** A link with the link relation type “enclosure” SHALL include the `type` link parameter containing a media type valid that is valid according to [RFC 6838].
 
 TEST:
 
 Issue an HTTP GET request to {root}/collections.
-For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, validate that the `type` parameter is present. TODO
+For each of the links returned in the response having a `rel` link parameter equal to `enclosure`,validate that the `type` parameter is present and the media type is valid according to [RFC 6838].
 
 **REQ00x** A link with the link relation type “enclosure” SHALL include the `hreflang` link parameter containing the language of that distribution. The value of `hreflang` SHALL follow [RFC 4647].
 
 TEST:
 
 Issue an HTTP GET request to {root}/collections.
-For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, validate that the `hreflang` parameter is present. TODO
+For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, validate that the `hreflang` parameter is present.
+Check that the `hreflang` parameter  contains a language encoded in accordance with [RFC 4647]
 
 **REC00x** A link with the link relation type “enclosure” SHOULD include the `length` link parameter containing the length in bytes.
-
-OPEN QUESTION Confirm that the semantics of the “length” property is “size in bytes” ().
 
 **REC00x** The link(s) with the link relation type “enclosure” SHOULD include the `title` link parameter containing a human-friendly name.
 
@@ -407,68 +404,6 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 | 2. Get Spatial Dataset | |
 | 3. Describe Spatial Dataset | |
 | 4. Link Download Service | |
-### Supported languages
-According to [RFC 7231]:
-
->   The 406 (Not Acceptable) status code indicates that the target resource does not have a current representation that would be acceptable to the user agent, according to the proactive negotiation header fields received in the request (Section 5.3), and the server is unwilling to supply a default representation.
-
->  The server SHOULD generate a payload containing a list of available representation characteristics and corresponding resource identifiers from which the user or user agent can choose the one most appropriate.  A user agent MAY automatically select the most appropriate choice from that list.  However, this specification does not define any standard for such automatic selection, as described in Section 6.4.1.
-
-> [...]
-
-> A specific format for automatic selection is not defined by this specification because HTTP tries to remain orthogonal to the definition of its payloads.  In practice, the representation is provided in some easily parsed format believed to be acceptable to the user agent, as determined by shared design or content negotiation, or in some commonly accepted hypertext format.
-
-
-Similar to the example on to [SO2], this could look as follows when JSON is acceptable for the client:
-
-```
-# Request
-GET {root}/ HTTP/1.1
-Accept: application/json
-Accept-Language: *;q=0.0
-```
-
-```
-# Response
-406 Not Acceptable
-Content-Type: application/json
-
-{
-  { "acceptable" : [ "en", "da" ] }
-}
-```
-
-[RFC 7807] defines a "problem detail" as a way to carry machine-readable details of errors in a HTTP response to avoid the need to define new error response formats for HTTP APIs.
-
-If [RFC 7808] is to be used, the problem details object would have to be extended with additional members.
-
-```
-# Request
-GET {root}/ HTTP/1.1
-Accept: application/json
-Accept-Language: *;q=0.0
-```
-
-```
-# Response
-406 Not Acceptable
-Content-Type: application/problem+json
-Content-Language: en
-
-{
-    "type": "https://example.com/to/be/decided",
-    "title": "Not Acceptable",
-    "status": 406,
-    "detail": "This server supports the following languages: English, Danish.",
-    "instance": "/collections",
-    "acceptable_languages": [ "en", "da" ]
-   }
-
-```
-
-In short: there is currently no standard way to supply a list of supported languages.
-
-The parts in this specification regarding the 406 HTTP status code are inspired by discussions on Stack Overflow ([SO1], [SO2]) and on chapter 7 in [Alla].
 
 ## Direct access download service
 
@@ -503,11 +438,73 @@ Metadata Date (M)
 Metadata Language (M) 
 Unique Resource Identifier (M)
 
+QUESTION: Would a lightweight mapping to OpenAPI i.e. without extensions of OpenAPI terms (terms beginning with ‘x-’ in accordance with the [OpenAPI specs](https://swagger.io/docs/specification/openapi-extensions)) be sufficient?
+
 --- 
 **NOTE**
 
 Additional metadata elements can be added to an OpenAPI definition through [extensions](https://swagger.io/docs/specification/openapi-extensions/), implemented through the introduction of fields beginning with `x-`. However, in order to streamline the implementation of metadata, this document does not propose any INSPIRE-specific extensions. 
+# Annex D. Supported languages
+According to [RFC 7231]:
 
---- 
-# Annex C: Examples <a name="examples"></a>
-Link to github page
+>   The 406 (Not Acceptable) status code indicates that the target resource does not have a current representation that would be acceptable to the user agent, according to the proactive negotiation header fields received in the request (Section 5.3), and the server is unwilling to supply a default representation.
+
+>  The server SHOULD generate a payload containing a list of available representation characteristics and corresponding resource identifiers from which the user or user agent can choose the one most appropriate.  A user agent MAY automatically select the most appropriate choice from that list.  However, this specification does not define any standard for such automatic selection, as described in Section 6.4.1.
+
+> [...]
+
+> A specific format for automatic selection is not defined by this specification because HTTP tries to remain orthogonal to the definition of its payloads.  In practice, the representation is provided in some easily parsed format believed to be acceptable to the user agent, as determined by shared design or content negotiation, or in some commonly accepted hypertext format.
+
+
+Similar to the example on to [SO2], this could look as follows when JSON is acceptable for the client:
+
+```
+# Request
+GET {root}/ HTTP/1.1
+Accept: application/json
+Accept-Language: *;q=0.0
+```
+
+```
+# Response
+406 Not Acceptable
+Content-Type: application/json
+
+{
+  { "acceptable" : [ "en", "da" ] }
+}
+```
+
+[RFC 7807] defines a "problem detail" as a way to carry machine-readable details of errors in a HTTP response to avoid the need to define new error response formats for HTTP APIs.
+
+If [RFC 7808] is to be used, the problem details object would have to be extended with additional members.
+
+QUESTION: Would the approach discussed in  https://github.com/opengeospatial/oapi_common/issues/75 be a good way of dealing with errors (incl. INSPIRE-specific ones).
+
+```
+# Request
+GET {root}/ HTTP/1.1
+Accept: application/json
+Accept-Language: *;q=0.0
+```
+
+```
+# Response
+406 Not Acceptable
+Content-Type: application/problem+json
+Content-Language: en
+
+{
+    "type": "https://example.com/to/be/decided",
+    "title": "Not Acceptable",
+    "status": 406,
+    "detail": "This server supports the following languages: English, Danish.",
+    "instance": "/collections",
+    "acceptable_languages": [ "en", "da" ]
+   }
+
+```
+
+In short: there is currently no standard way to supply a list of supported languages.
+
+The parts in this specification regarding the 406 HTTP status code are inspired by discussions on Stack Overflow ([SO1], [SO2]) and on chapter 7 in [Alla].
