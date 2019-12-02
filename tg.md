@@ -63,10 +63,10 @@ The target of all requirements classes are “Web APIs”. Conformance with this
 - **[OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)** - OGC API - Features - Part 1: Core<sup>1</sup>
 - **[OpenAPI 3.0](https://swagger.io/docs/specification/about)** - OpenAPI specification v3.0 
 - **[IRs for NS](https://eur-lex.europa.eu/eli/reg/2009/976/oj)** - Regulation 976/2009 implementing Directive 2007/2/EC as regards the Network Services 
-- **[IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)** Regulation 1089/2010 implementing Directive 2007/2/EC as regards interoperability of spatial data sets and services 
+- **[IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)** - Regulation 1089/2010 implementing Directive 2007/2/EC as regards interoperability of spatial data sets and services 
 - **[RFC 7231](https://tools.ietf.org/html/rfc7231)** - Hypertext Transfer Protocol (HTTP/1.1)
-- **[RFC 2616](https://www.w3.org/Protocols/rfc2616)**
-- **[RFC 4647](https://tools.ietf.org/html/rfc4647)** Phillips, A. and David, M. (eds.). Matching of Language Tags [online]. Internet Engineering Task Force, September 2006.
+- **[RFC 2616](https://www.w3.org/Protocols/rfc2616)** - 
+- **[RFC 4647](https://tools.ietf.org/html/rfc4647)** - Phillips, A. and David, M. (eds.). Matching of Language Tags [online]. Internet Engineering Task Force, September 2006.
 - **[RSS 2.0](http://www.rssboard.org/rss-draft-1)** - Really Simple Syndication Specification - RSS 2.0 Specification 
 
 <sup>1</sup> The standard is in the process of being released by the ISO as ISO 19168-1.
@@ -85,10 +85,10 @@ For the purposes of this document, the following terms and definitions apply:
 | feature collection | | OAPIF
 | spatial object | An abstract representation of a real-world phenomenon related to a specific location or geographical area | [INSPIRE](https://inspire.ec.europa.eu/glossary/SpatialObject)
 | pre-defined data set download service | Service that enables copies of spatial data sets, or parts of such sets, to be downloaded and, where practicable, accessed directly. | [INSPIRE](http://inspire.ec.europa.eu/glossary/DownloadService)
-| Web API | API using an architectural style that is founded on the technologies of the Web. Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C Data on the Web Best Practices provides more detail. | [DWBP](https://www.w3.org/TR/dwbp)
+| Web API | API using an architectural style that is founded on the technologies of the Web. | [DWBP](https://www.w3.org/TR/dwbp)
 
 
-<sup>2</sup> ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
+<sup>2 </sup> ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
 - [ISO Online browsing platform](https://www.iso.org/obp)
 - [INSPIRE glossary](http://inspire.ec.europa.eu/glossary)
 ## Symbols and abbreviated terms
@@ -172,11 +172,11 @@ TEST: rely on OAPIF CC Core ATS and CITE test.
 
 NOTE CRS=WGS84 when returning collections and features through the API. Enclosure link for bulk download could still have a different CRS.
 
-**REQ002:** The Web API SHALL comply with OAPIF RC OpenAPI.
+**REQ002:** The Web API SHALL comply with OAPIF RC OpenAPI.<sup>3, 4</sup>
 
-NOTE 1 In OAPIF standard, this is an option RC. This specification proposes to make it a mandatory requirement for INSPIRE in order to facilitate the development of client applications, and in particular adding support in the INSPIRE geoportal.
+<sup>3 </sup> In OAPIF standard, this is an optional RC. This specification proposes to make it a mandatory requirement for INSPIRE in order to facilitate the development of client applications, and in particular adding support in the INSPIRE geoportal.
 
-NOTE 2 There are plans to add additional RCs for other API description standards (or standard versions) in the future (e.g. for OpenAPI v3.1). When additional RCs become available, this specification will be reviewed and possibly revised to include these as additional options.
+<sup>4 </sup>There are plans to add additional RCs for other API description standards (or standard versions) in the future (e.g. for OpenAPI v3.1). When additional RCs become available, this specification will be reviewed and possibly revised to include these as additional options.
 
 
 ####INSPIRE-specific requirements
@@ -420,7 +420,7 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 
 # Annex C: Mapping between INSPIRE NS Metadata elements and OpenAPI definition fields  <a name="inspire-ns-openapi"></a>
 
-
+This guidance document proposes a lightweight mapping approach between INSPIRE Network service metadata elements and OpenAPI definition. No extensions of OpenAPI terms are foreseen.<sup>5</sup>
 
 | INSPIRE NS Metadata element | OpenAPI field names |
 | ------------ | ------------ |
@@ -443,12 +443,10 @@ Metadata Date (M)
 Metadata Language (M) 
 Unique Resource Identifier (M)
 
-&#x1F538; OPEN QUESTION: Would a lightweight mapping to OpenAPI i.e. without extensions of OpenAPI terms (terms beginning with ‘x-’ in accordance with the [OpenAPI specs](https://swagger.io/docs/specification/openapi-extensions)) be sufficient?
+&#x1F538; OPEN QUESTION: Would the proposed lightweight mapping to OpenAPI i.e. without extensions of OpenAPI terms (terms beginning with ‘x-’ in accordance with the [OpenAPI specs](https://swagger.io/docs/specification/openapi-extensions)) be sufficient?
 
 --- 
-**NOTE**
-
-Additional metadata elements can be added to an OpenAPI definition through [extensions](https://swagger.io/docs/specification/openapi-extensions/), implemented through the introduction of fields beginning with `x-`. However, in order to streamline the implementation of metadata, this document does not propose any INSPIRE-specific extensions. 
+<sup>5 </sup>Additional metadata elements can be added to an OpenAPI definition through [extensions](https://swagger.io/docs/specification/openapi-extensions/), implemented through the introduction of fields beginning with `x-`. However, in order to streamline the implementation of metadata, this document does not propose any INSPIRE-specific extensions. 
 # Annex D. Supported languages  <a name="supported-lang"></a>
 According to [RFC 7231]:
 
