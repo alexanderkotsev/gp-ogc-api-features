@@ -13,8 +13,6 @@
 * [INSPIRE Download Services based on OAPIF](#inspire-download-services-based-on-oapif)
     * [Main principles](#main-principles)
     * [Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”](#req-pre-defined)
-        * [OAPIF requirements](#oapif-requirements)
-        * [INSPIRE-specific requirements](#inspire-specific-requirements)
     * [Requirements class “INSPIRE-direct-access-download-OAPIF”](#req-inspire-direct)
     * [Requirements class “INSPIRE-multilinguality”](#req-multilinguality)
     * [Requirements class “INSPIRE OAPIF JSON”](#req-oapif-json)
@@ -46,23 +44,20 @@ For further details about the standard, see the [OGC API - Features Github space
 For a description of the main differences between WFS 2.0 and OGC API - Features, see [this section in the Guide on OGC API - Features](https://github.com/opengeospatial/ogcapi-features/blob/master/guide/section_8_WFS_2_0_v_3_0.adoc).
 
 ## Scope
-This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). 
-
-The approach described here is not legally binding and shows one of several ways of implementing INSPIRE Download services.
+This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of several ways of implementing INSPIRE Download services.
 
 ## Conformance
 This specification defines the following requirements classes:
+
 1. INSPIRE-pre-defined-dataset-download-OAPIF (mandatory)
 2. INSPIRE-direct-access-download-OAPIF (?) (optional)
 3. INSPIRE-multilinguality (optional)
 4. INSPIRE-OAPIF-JSON (optional)
 5. INSPIRE-OAPIF-QoS (???) (mandatory)
 
-The target of all requirements classes are “Web APIs”.
+The target of all requirements classes are “Web APIs”. Conformance with this specification shall be assessed using all the relevant conformance test cases specified in [Annex A (normative)](#ats) of this specification.
 
-TODO Add sth about dependencies between the requirements classes.
 
-Conformance with this specification shall be assessed using all the relevant conformance test cases specified in Annex A (normative) of this specification.
 ## Normative references
 
 - [OGC API - Features - Part 1: Core] (http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)
@@ -71,28 +66,31 @@ Conformance with this specification shall be assessed using all the relevant con
 - [IRs for ISDSS] Regulation 1089/2010 implementing Directive 2007/2/EC as regards interoperability of spatial data sets and services (https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)
 - [RFC 7231] - Hypertext Transfer Protocol (HTTP/1.1) (https://tools.ietf.org/html/rfc7231)
 - [RFC 2616] https://www.w3.org/Protocols/rfc2616
-- [RFC 4647] PHILLIPS, A. and DAVID, M. (eds.). Matching of Language Tags [online]. Internet Engineering Task Force, September 2006. RFC 4647. Available from: https://tools.ietf.org/html/rfc4647
+- [RFC 4647] Phillips, A. and David, M. (eds.). Matching of Language Tags [online]. Internet Engineering Task Force, September 2006. RFC 4647. Available from: https://tools.ietf.org/html/rfc4647
 - [RSS 2.0] RSS 2.0 Specification (http://www.rssboard.org/rss-draft-1)
 
 ## Terms and definitions
-For the purposes of this document, the following terms and definitions apply.
+For the purposes of this document, the following terms and definitions apply:
 
-ISO and the European Commission maintain terminological databases at the following addresses:
+| Term | Definition | Source
+| --- | --- | ---|
+| API | | OpenAPI
+| Content negotiation | | [RFC 7231]
+| data set | | INSPIRE
+| distribution (of a data set) | A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above). | [DCAT](https://www.w3.org/TR/vocab-dcat-2/#Class:Distribution)
+| direct access download service | | INSPIRE
+| download service | | INSPIRE
+| Encoding (rule) | | [ISO 19118?]
+| feature | |
+| feature collection | | OAPIF
+| spatial object | An abstract representation of a real-world phenomenon related to a specific location or geographical area | [INSPIRE](https://inspire.ec.europa.eu/glossary/SpatialObject)
+| pre-defined data set download service | | INSPIRE
+| Web API | API using an architectural style that is founded on the technologies of the Web [DWBP](https://www.w3.org/TR/dwbp). Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C Data on the Web Best Practices provides more detail.
+
+
+ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
 - [ISO Online browsing platform](https://www.iso.org/obp)
 - [INSPIRE glossary](http://inspire.ec.europa.eu/glossary)
-
-- Web API - API using an architectural style that is founded on the technologies of the Web [DWBP](https://www.w3.org/TR/dwbp)
-Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C Data on the Web Best Practices provides more detail.
-- Feature - spatial object
-- Feature collection
-- data set [INSPIRE]
-- distribution (of a data set) [DCAT]
-- download service [INSPIRE]
-- pre-defined data set download service (?) [INSPIRE]
-- direct access download service (?) [INSPIRE]
-- API [OpenAPI?]
-- Content negotiation [RFC 7231]
-- Encoding (rule) [ISO 19118?]
 ## Symbols and abbreviated terms
 | Abbreviation | Term |
 | --- | --- |
