@@ -60,35 +60,35 @@ The target of all requirements classes are “Web APIs”. Conformance with this
 
 ## Normative references
 
-- [OGC API - Features - Part 1: Core] (http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)
-- [OpenAPI 3.0] OpenAPI specification v3.0 (https://swagger.io/docs/specification/about)
-- [IRs for NS] Regulation 976/2009 implementing Directive 2007/2/EC as regards the Network Services (https://eur-lex.europa.eu/eli/reg/2009/976/oj)
-- [IRs for ISDSS] Regulation 1089/2010 implementing Directive 2007/2/EC as regards interoperability of spatial data sets and services (https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)
-- [RFC 7231] - Hypertext Transfer Protocol (HTTP/1.1) (https://tools.ietf.org/html/rfc7231)
-- [RFC 2616] https://www.w3.org/Protocols/rfc2616
-- [RFC 4647] Phillips, A. and David, M. (eds.). Matching of Language Tags [online]. Internet Engineering Task Force, September 2006. RFC 4647. Available from: https://tools.ietf.org/html/rfc4647
-- [RSS 2.0] RSS 2.0 Specification (http://www.rssboard.org/rss-draft-1)
+- **[OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)** - OGC API - Features - Part 1: Core<sup>1</sup>
+- **[OpenAPI 3.0](https://swagger.io/docs/specification/about)** - OpenAPI specification v3.0 
+- **[IRs for NS](https://eur-lex.europa.eu/eli/reg/2009/976/oj)** - Regulation 976/2009 implementing Directive 2007/2/EC as regards the Network Services 
+- **[IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)** Regulation 1089/2010 implementing Directive 2007/2/EC as regards interoperability of spatial data sets and services 
+- **[RFC 7231](https://tools.ietf.org/html/rfc7231)** - Hypertext Transfer Protocol (HTTP/1.1)
+- **[RFC 2616](https://www.w3.org/Protocols/rfc2616)**
+- **[RFC 4647](https://tools.ietf.org/html/rfc4647)** Phillips, A. and David, M. (eds.). Matching of Language Tags [online]. Internet Engineering Task Force, September 2006.
+- **[RSS 2.0](http://www.rssboard.org/rss-draft-1)** - Really Simple Syndication Specification - RSS 2.0 Specification 
 
-## Terms and definitions
+<sup>1</sup> The standard is in the process of being released by the ISO as ISO 19168-1.
+## Terms and definitions <sup>2</sup>
 For the purposes of this document, the following terms and definitions apply:
 
 | Term | Definition | Source
 | --- | --- | ---|
 | API | | OpenAPI
-| Content negotiation | | [RFC 7231]
-| data set | | INSPIRE
+| content negotiation | HTTP/1.1 allows web site authors to put multiple versions of the same information under a single resource URI.  Each of these versions is called a `variant'. Content negotiation is the process by which the best variant is selected if the resource is accessed. | [RFC 2295](https://tools.ietf.org/html/rfc2295)
+| data set | Identifiable collection of data. | [ISO 19115]()
 | distribution (of a data set) | A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above). | [DCAT](https://www.w3.org/TR/vocab-dcat-2/#Class:Distribution)
-| direct access download service | | INSPIRE
-| download service | | INSPIRE
+| direct access download service | Service that enables copies of spatial data sets, or parts of such sets, to be downloaded. | [INSPIRE](http://inspire.ec.europa.eu/glossary/DownloadService)
 | Encoding (rule) | | [ISO 19118?]
 | feature | |
 | feature collection | | OAPIF
 | spatial object | An abstract representation of a real-world phenomenon related to a specific location or geographical area | [INSPIRE](https://inspire.ec.europa.eu/glossary/SpatialObject)
-| pre-defined data set download service | | INSPIRE
-| Web API | API using an architectural style that is founded on the technologies of the Web [DWBP](https://www.w3.org/TR/dwbp). Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C Data on the Web Best Practices provides more detail.
+| pre-defined data set download service | Service that enables copies of spatial data sets, or parts of such sets, to be downloaded and, where practicable, accessed directly. | [INSPIRE](http://inspire.ec.europa.eu/glossary/DownloadService)
+| Web API | API using an architectural style that is founded on the technologies of the Web. Note: Best Practice 24: Use Web Standards as the foundation of APIs in the W3C Data on the Web Best Practices provides more detail. | [DWBP](https://www.w3.org/TR/dwbp)
 
 
-ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
+<sup>2</sup> ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
 - [ISO Online browsing platform](https://www.iso.org/obp)
 - [INSPIRE glossary](http://inspire.ec.europa.eu/glossary)
 ## Symbols and abbreviated terms
