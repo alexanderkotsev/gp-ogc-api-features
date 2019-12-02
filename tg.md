@@ -29,23 +29,22 @@ This document proposes a technical approach for implementing the requirements se
 Several possible solutions for implementing download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are available that cover implementations based on ATOM, WFS 2.0, WCS and SOS. 
 
 While all of these approaches use the Web for providing access to geospatial data, the new family of OGC API standards aim to be more developer friendly by requiring less up-front knowledge of the standard involved. The rapid emergence of Web APIs provide a flexible and easily understandable means for access to data. The W3C Data on the Web Best Practices therefore recommends that data be exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs)[DWBP Best Practice 24](https://www.w3.org/TR/dwbp/#APIHttpVerbs). 
-Therefore, this document describes an additional option for the implementation of INSPIRE download services. In preparing the guidance document INSPIRE-specific extensions are minimised. Where several implementation options exist, the guidance describes the specific way of application of the OAPIF standard.
+Therefore, this document describes an additional option for the implementation of INSPIRE download services. In preparing the guidance document INSPIRE-specific extensions are minimised. Where several implementation options exist, the guidance describes the specific way of application of the OAPIF and associated standards.
 
 ### OGC API - Features - a brief overview
 
 OGC API standards define modular API building blocks to spatially enable Web APIs in a consistent way. The [OpenAPI specification](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#OpenAPI) is used to define the API building blocks.
 
-OGC API - Features provides API building blocks to create, modify and query features on the Web. OGC API - Features is comprised of multiple parts, each of them is a separate standard. The ["Core"](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html) part specifies the core capabilities and is restricted to fetching features where geometries are represented in the coordinate reference system WGS 84 with axis order longitude/latitude. Additional capabilities that address more advanced needs will be specified in additional parts. 
+OGC API - Features provides API building blocks to create, modify and query features on the Web. OGC API - Features is comprised of multiple parts, each of them is a separate standard. The ["Core"](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html) part specifies the core capabilities and is restricted to fetching features where geometries are represented in the WGS 84 coordinate reference system with axis order longitude/latitude. Additional capabilities that address more advanced needs will be specified in additional parts. 
 
 By default, every API implementing this standard will provide access to a single dataset. Rather than sharing the data as a complete dataset, the OGC API - Features standards offer direct, fine-grained access to the data at the feature (object) level. Query operations enable clients to retrieve features from the underlying data store based upon simple selection criteria, defined by the client.
 
-For further details about the standard, see the [OGC API - Features Github space](https://github.com/opengeospatial/ogcapi-features). 
+For further details about the standard, see the [OGC API - Features GitHub space](https://github.com/opengeospatial/ogcapi-features). 
 
 For a description of the main differences between WFS 2.0 and OGC API - Features, see [this section in the Guide on OGC API - Features](https://github.com/opengeospatial/ogcapi-features/blob/master/guide/section_8_WFS_2_0_v_3_0.adoc).
 
 ## Scope
 This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of several ways of implementing INSPIRE Download services.
-
 ## Conformance
 This specification defines the following requirements classes:
 
@@ -56,7 +55,6 @@ This specification defines the following requirements classes:
 5. INSPIRE-OAPIF-QoS (???) (mandatory)
 
 The target of all requirements classes are “Web APIs”. Conformance with this specification shall be assessed using all the relevant conformance test cases specified in [Annex A (normative)](#ats) of this specification.
-
 
 ## Normative references
 
@@ -101,25 +99,24 @@ For the purposes of this document, the following terms and definitions apply:
 | URL |	Uniform Resource Locator |
 | WFS | Web Feature Service |
 ## INSPIRE Download Services based on OAPIF
-This section describes the requirements a Web API must fulfill in order to be compliant with both ‘OGC API – Features’ and INSPIRE requirements for download services.
+This section describes the requirements a Web API shall fulfill in order to be compliant with both ‘OGC API – Features’ and INSPIRE requirements for download services.
 ### Main principles
 
-- The Web API provides download access to one INSPIRE data set.
+1. The Web API provides download access to one INSPIRE data set. For example, two data sets (with their own metadata records), one on buildings and one on addresses will have two landing pages:
+    - http://my-org.eu/addresses/
+    - http://my-org.eu/buildings/
 
-EXAMPLE two data sets (with their own metadata records), one on buildings and one on addresses - two landing pages
+NOT http://my-org.eu/oapif/, http://my-org.eu/oapif/collections/addresses,  and http://my-org.eu/oapif/collections/buildings 
 
-http://my-org.eu/addresses/
-http://my-org.eu/buildings/
+2. The data set is structured into one or several feature collections. Аll feature collections available in one API (under the `/collections` path) are considered to be part of the data set provided by the Web API.
 
-NOT http://my-org.eu/oapif/ - http://my-org.eu/oapif/collections/addresses  and http://my-org.eu/oapif/collections/buildings 
+3. Every collection contains features of only one spatial object type<sup>3</sup>
 
-- The data set is structured into one or several feature collections --> all feature collections available in one API (under the `/collections` path) are considered to be part of the data set provided by the Web API
-- Every collection contains features of only one spatial object type
-  - NOTE According to the OAPIF standard a collection could contain also more than one spatial object type.
+<sup>3</sup>According to the OAPIF standard a collection could contain also more than one spatial object type.
 
-| INSPIRE resources | OAPIF resource | Example path | Document reference(?) |
+| INSPIRE resources | OAPIF resource | Sample path | Document reference(?) |
 | ------------- | ------------- | ------------- |-------------: |
-| Data set (distributions) | Landing page | http://my-org.eu/addresses/ <br> http://my-org.eu/buildings/ |7.2 API landing page |
+| Data set (all distributions) | Landing page | http://my-org.eu/addresses/ <br> http://my-org.eu/buildings/ |7.2 API landing page |
 | Data set description | Feature collections |
 | Spatial object type | Feature collection | http://my-org.eu/addresses/collections/address | 7.14 Feature collection |
 ...
@@ -158,7 +155,7 @@ GET
 | Requirements class | http://inspire.ec.europa.eu/id/spec/oapif-download/1.0 |
 | --- | --- |
 | Target type | Web API |
-| Dependency | OPAIF Requirements class "Core" |
+| Dependency | OAPIF Requirements class "Core" |
 | Dependency | RFC 7231 (Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content) |
 
 
@@ -172,11 +169,11 @@ TEST: rely on OAPIF CC Core ATS and CITE test.
 
 NOTE CRS=WGS84 when returning collections and features through the API. Enclosure link for bulk download could still have a different CRS.
 
-**REQ002:** The Web API SHALL comply with OAPIF RC OpenAPI.<sup>3, 4</sup>
+**REQ002:** The Web API SHALL comply with OAPIF RC OpenAPI.<sup>4, 5</sup>
 
-<sup>3 </sup> In OAPIF standard, this is an optional RC. This specification proposes to make it a mandatory requirement for INSPIRE in order to facilitate the development of client applications, and in particular adding support in the INSPIRE geoportal.
+<sup>4 </sup> In OAPIF standard, this is an optional RC. This specification proposes to make it a mandatory requirement for INSPIRE in order to facilitate the development of client applications, and in particular adding support in the INSPIRE geoportal.
 
-<sup>4 </sup>There are plans to add additional RCs for other API description standards (or standard versions) in the future (e.g. for OpenAPI v3.1). When additional RCs become available, this specification will be reviewed and possibly revised to include these as additional options.
+<sup>5 </sup>There are plans to add additional RCs for other API description standards (or standard versions) in the future (e.g. for OpenAPI v3.1). When additional RCs become available, this specification will be reviewed and possibly revised to include these as additional options.
 
 
 ####INSPIRE-specific requirements
@@ -420,7 +417,7 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 
 # Annex C: Mapping between INSPIRE NS Metadata elements and OpenAPI definition fields  <a name="inspire-ns-openapi"></a>
 
-This guidance document proposes a lightweight mapping approach between INSPIRE Network service metadata elements and OpenAPI definition. No extensions of OpenAPI terms are foreseen.<sup>5</sup>
+This guidance document proposes a lightweight mapping approach between INSPIRE Network service metadata elements and OpenAPI definition. No extensions of OpenAPI terms are foreseen.<sup>6</sup>
 
 | INSPIRE NS Metadata element | OpenAPI field names |
 | ------------ | ------------ |
@@ -446,7 +443,7 @@ Unique Resource Identifier (M)
 &#x1F538; OPEN QUESTION: Would the proposed lightweight mapping to OpenAPI i.e. without extensions of OpenAPI terms (terms beginning with ‘x-’ in accordance with the [OpenAPI specs](https://swagger.io/docs/specification/openapi-extensions)) be sufficient?
 
 --- 
-<sup>5 </sup>Additional metadata elements can be added to an OpenAPI definition through [extensions](https://swagger.io/docs/specification/openapi-extensions/), implemented through the introduction of fields beginning with `x-`. However, in order to streamline the implementation of metadata, this document does not propose any INSPIRE-specific extensions. 
+<sup>6 </sup>Additional metadata elements can be added to an OpenAPI definition through [extensions](https://swagger.io/docs/specification/openapi-extensions/), implemented through the introduction of fields beginning with `x-`. However, in order to streamline the implementation of metadata, this document does not propose any INSPIRE-specific extensions. 
 # Annex D. Supported languages  <a name="supported-lang"></a>
 According to [RFC 7231]:
 
@@ -508,6 +505,6 @@ Content-Language: en
 
 ```
 
-In short: there is currently no standard way to supply a list of supported languages.
+In summary, there is currently no standard way to supply a list of supported languages.
 
 The parts in this specification regarding the 406 HTTP status code are inspired by discussions on Stack Overflow ([SO1], [SO2]) and on chapter 7 in [Alla].
