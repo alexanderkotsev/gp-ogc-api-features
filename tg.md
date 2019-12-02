@@ -1,7 +1,7 @@
 # Setting up an INSPIRE Download service based on the OGC API-Features standard
 
 `Version: 0.1`
-`Date: 2019-11-12`
+`Date: 2019-12-02`
 
 ## Table of Contents
 * [Introduction](#introduction)
@@ -227,7 +227,7 @@ An additional link is to a GML application schema for the dataset - using link r
 
 There are also links to the license information for the building data (using link relation type `license`).
 
-Finally, the link with the link relation type `enclosure` provides a reference to another distribution of the data set as a GeoPackage download of the complete data set (pre-defined download). The length property includes the size (in bytes?) of the data set.
+Finally, the link with the link relation type `enclosure` provides a reference to another distribution of the data set as a GeoPackage download of the complete data set (pre-defined download). The `length` property includes the size in bytes of the data set.
 
 ```json
 {
