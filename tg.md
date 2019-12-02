@@ -31,7 +31,7 @@ This document proposes a technical approach for implementing the requirements se
 Several possible solutions for implementing download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are available that cover implementations based on ATOM, WFS 2.0, WCS and SOS. 
 
 While all of these approaches use the Web for providing access to geospatial data, the new family of OGC API standards aim to be more developer friendly by requiring less up-front knowledge of the standard involved. The rapid emergence of Web APIs provide a flexible and easily understandable means for access to data. The W3C Data on the Web Best Practices therefore recommends that data be exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs)[DWBP Best Practice 24](https://www.w3.org/TR/dwbp/#APIHttpVerbs). 
-Therefore, this document describes an additional option for the implementation of INSPIRE download services.
+Therefore, this document describes an additional option for the implementation of INSPIRE download services. In preparing the guidance document INSPIRE-specific extensions are minimised. Where several implementation options exist, the guidance describes the specific way of application of the OAPIF standard.
 
 ### OGC API - Features - a brief overview
 
@@ -57,7 +57,6 @@ This specification defines the following requirements classes:
 3. INSPIRE-multilinguality (optional)
 4. INSPIRE-OAPIF-JSON (optional)
 5. INSPIRE-OAPIF-QoS (???) (mandatory)
-
 
 The target of all requirements classes are “Web APIs”.
 
@@ -206,7 +205,7 @@ TEST:
 Issue an HTTP GET request to {root}/collections.
 For each of the links returned in the response having a `rel` link parameter equal to `enclosure`,validate that the `type` parameter is present and the media type is valid according to [RFC 6838].
 
-**REQ00x** A link with the link relation type “enclosure” SHALL include the `hreflang` link parameter containing the language of that distribution. The value of `hreflang` SHALL follow [RFC 4647].
+**REQ00x** A link with the link relation type “enclosure” SHALL include the `hreflang` link parameter containing the language of that distribution. The value of `hreflang` SHALL follow [RFC 4647].l
 
 TEST:
 
@@ -220,7 +219,7 @@ Check that the `hreflang` parameter  contains a language encoded in accordance w
 
 
 
-EXAMPLE Feature collections response document
+**EXAMPLE** Feature collections response document
 
 This feature collections example response in JSON is for a dataset with a single collection "buildings". It includes links to the features resource in all formats that are supported by the service (link relation type: `items`).
 
