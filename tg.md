@@ -75,15 +75,14 @@ For the purposes of this document, the following terms and definitions apply:
 
 | Term | Definition | Source
 | --- | --- | ---|
-| API | | OpenAPI
 | content negotiation | HTTP/1.1 allows web site authors to put multiple versions of the same information under a single resource URI.  Each of these versions is called a `variant'. Content negotiation is the process by which the best variant is selected if the resource is accessed. | [RFC 2295](https://tools.ietf.org/html/rfc2295)
 | data set | Identifiable collection of data. | [ISO 19115]()
 | distribution (of a data set) | A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above). | [DCAT](https://www.w3.org/TR/vocab-dcat-2/#Class:Distribution)
 | direct access download service | Service that enables copies of spatial data sets, or parts of such sets, to be downloaded. | [INSPIRE](http://inspire.ec.europa.eu/glossary/DownloadService)
-| Encoding (rule) | | [ISO 19118?]
-| feature | |
-| feature collection | | OAPIF
-| spatial object | An abstract representation of a real-world phenomenon related to a specific location or geographical area | [INSPIRE](https://inspire.ec.europa.eu/glossary/SpatialObject)
+| encoding (rule) | | [ISO 19118?]
+| feature | Abstraction of real world phenomena. | [OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_feature)
+| feature collection | A set of features from a dataset. | [OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_feature_collection)
+| spatial object  | An abstract representation of a real-world phenomenon related to a specific location or geographical area | [INSPIRE](https://inspire.ec.europa.eu/glossary/SpatialObject)
 | pre-defined data set download service | Service that enables copies of spatial data sets, or parts of such sets, to be downloaded and, where practicable, accessed directly. | [INSPIRE](http://inspire.ec.europa.eu/glossary/DownloadService)
 | Web API | API using an architectural style that is founded on the technologies of the Web. | [DWBP](https://www.w3.org/TR/dwbp)
 
@@ -95,9 +94,10 @@ For the purposes of this document, the following terms and definitions apply:
 | Abbreviation | Term |
 | --- | --- |
 | API |	Application Programming Interface |
-| DCAT | 	Data Catalog Vocabulary |
-| JSON | 	JavaScript Object Notation |
-| OAPIF	| OGC API - Features |
+| DCAT | Data Catalog Vocabulary |
+| GML | Geography Markup Language |
+| JSON | JavaScript Object Notation |
+| OAPIF | OGC API - Features |
 | URL |	Uniform Resource Locator |
 | WFS | Web Feature Service |
 ## INSPIRE Download Services based on OAPIF
