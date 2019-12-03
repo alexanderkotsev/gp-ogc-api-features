@@ -219,15 +219,15 @@ GET
 
 **EXAMPLE** Feature collections response document (adapted from [OAPIF]())
 
-This feature collections example response in JSON is for a dataset with a single collection "buildings". It includes links to the features resource in all formats that are supported by the service (link relation type: `items`).
+- This feature collections example response in JSON is for a dataset with a single collection "buildings". It includes links to the features resource in all formats that are supported by the service (link relation type: `items`).
 
-Representations of the resource in other formats are referenced using link relation type `alternate`.
+- Representations of the resource in other formats are referenced using link relation type `alternate`.
 
-An additional link is to a GML application schema for the dataset - using link relation type `describedBy`.
+- An additional link is to a GML application schema for the dataset - using link relation type `describedBy`.
 
-There are also links to the license information for the building data (using link relation type `license`).
+- There are also links to the license information for the building data (using link relation type `license`).
 
-Finally, the link with the link relation type `enclosure` provides a reference to another distribution of the data set as a GeoPackage download of the complete data set (pre-defined download). The `length` property includes the size in bytes of the data set.
+- Finally, the link with the link relation type `enclosure` provides a reference to another distribution of the data set as a GeoPackage download of the complete data set (pre-defined download). The `length` property includes the size in bytes of the data set.
 
 ```json
 {
@@ -282,7 +282,7 @@ Finally, the link with the link relation type `enclosure` provides a reference t
 
 | **Requirement** | **/req/pre-defined/collection-naming** |
 | --- | --- |
-| A | For each `collection` that provides data that is harmonised according to the [IRs for ISDSS], the name of the collection SHALL be the language-neutral name of the spatial object type as specified in the [IR-ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089). |
+| A | For each `collection` that provides data that is harmonised according to the [IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089), the name of the collection SHALL be the language-neutral name of the spatial object type as specified in the [IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089). |
 
 **TEST** 
 1. Check all collection names for a recognised language neutral name
@@ -298,14 +298,14 @@ Finally, the link with the link relation type `enclosure` provides a reference t
 
 ### 7.3. Requirements class INSPIRE-multilinguality <a name="req-multilinguality"></a>
 #### 7.3.1. INSPIRE-specific requirements
-##### Internationalization: request and response language
+##### Internationalisation: request and response language
 
-The requirements from the [IRs for NS] to support requests in different natural languages are met in the Web API through HTTP language negotiation, using HTTP headers as specified in [RFC 7231] and language tags as specified in [RFC 4647].
+The requirements from the [IRs for NS] to support requests in different natural languages are met in the Web API through HTTP language negotiation, using HTTP headers as specified in [RFC 7231](https://tools.ietf.org/html/rfc7231), and language tags as specified in [RFC 4647](https://tools.ietf.org/html/rfc4647).
 
 
 | **Requirement** | **/req/multilinguality/accept-language-header** |
 | --- | --- |
-| A | The Web API SHALL support the `Accept-Language` header in requests to the landing page (/), /collections, /collections/{collectionId}, /collections/{collectionId}/items and /collections/{collectionId}/items/{featureId} in accordance with [RFC 7231] and [RFC 4647]. The Web API SHALL return HTTP status code 406 when an Accept-Language HTTP header set to `*;q=0.0` is sent. |
+| A | The Web API SHALL support the `Accept-Language` header in requests to the landing page (/), /collections, /collections/{collectionId}, /collections/{collectionId}/items and /collections/{collectionId}/items/{featureId} in accordance with [RFC 7231](https://tools.ietf.org/html/rfc7231) and [RFC 4647](https://tools.ietf.org/html/rfc4647). The Web API SHALL return HTTP status code 406 when an Accept-Language HTTP header set to `*;q=0.0` is sent. |
 
 **TEST**
 1. Issue an HTTP GET request with an Accept-Language HTTP header containing a valid language tag to the following URLs: {root}/ and {root}/collections. For every feature collection identified in the response of {root}/collections, issue an HTTP request with an Accept-Language HTTP header containing a valid language tag to {root}/collections/{collectionId}, {root}/collections/{collectionId}/items.
@@ -333,7 +333,7 @@ The requirements from the [IRs for NS] to support requests in different natural 
 
 &#x1F538; OPEN QUESTION: Would the proposed approach based on HTTP standards be easily implementable by solutions. 
 
-[RFC 2616] does not define what such a response body exactly should look like, see also Annex B, and no other existing specifications have been identified that define this. As one of the principles in this specification is not to have any INSPIRE-specific extensions or requirements, this specification therefore does not give a stronger recommendation. This specification may be updated when the response body returned with HTTP status code 406 is standardised.
+[RFC 2616](https://www.w3.org/Protocols/rfc2616) does not define what such a response body exactly should look like, see also Annex B, and no other existing specifications have been identified that define this. As one of the principles in this specification is not to have any INSPIRE-specific extensions or requirements, this specification therefore does not give a stronger recommendation. This specification may be updated when the response body returned with HTTP status code 406 is standardised.
 
 | **Recommendation** | **/rec/pre-defined/accept-language-header** |
 | --- | --- |
@@ -364,9 +364,7 @@ Content-Language: en
 </html>
 ```
 
-As long as the response body supplied in a machine-readable format, such as JSON, sent with HTTP status code 406, is not standardised, it is not possible to build applications, such as the INSPIRE Geoportal, that programmatically can access a list of supported languages and display that information to an end user.
-
-A workaround for this is the following procedure:
+As long as the response body supplied in a machine-readable format, such as JSON, sent with HTTP status code 406, is not standardised, it is not possible to build applications, such as the [INSPIRE Geoportal](https://inspire-geoportal.ec.europa.eu/), that can programmatically access a list of supported languages and display that information to an end user. A workaround for this is the following procedure:
 1. Retrieve a list of languages of interest
     - For a EU-wide application, this could be a list of all EU official languages.
     - For another application, this could be a list of languages chosen by an end user.
@@ -375,7 +373,7 @@ A workaround for this is the following procedure:
 
 This workaround presumes that the following requirements and recommendations are followed:
 - [Recommendation 2 of OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_http_1_1), regarding the support of HTTP method HEAD
-- REQ00x and REC00x regarding support for Accept-Language and Content-Languages
+- **/req/multilinguality/accept-language-header**, and **/rec/multilinguality/content-language-paths** regarding support for Accept-Language and Content-Languages
 
 
 &#x1F538; OPEN QUESTION: Do you have any other proposals for how to implement the requirement for the download service to advertise the natural languages it supports?
@@ -410,7 +408,6 @@ This requirements class is relevant when providing access to INSPIRE data encode
 - [SO2] [Format for 406 Not Acceptable payload?](https://stackoverflow.com/questions/50102277/format-for-406-not-acceptable-payload)
 
 # Annex A: Abstract Test Suite <a name="ats"></a>
-
 **NOTE** Detailed ATS will be developed in the next version of the document.
 # Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions) <a name="ir2oapif"></a>
 ## Predefined access download service
