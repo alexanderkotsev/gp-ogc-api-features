@@ -46,9 +46,9 @@ This document proposes a technical approach for implementing the requirements se
 ## 3. Conformance <a name="conformance"></a>
 This specification defines the following requirements classes:
 
-- INSPIRE-pre-defined-dataset-download-OAPIF (mandatory)
-- INSPIRE-multilinguality (optional)
-- INSPIRE-OAPIF-GeoJSON (optional)
+- [INSPIRE-pre-defined-dataset-download-OAPIF (mandatory)](#req-pre-defined)
+- [INSPIRE-multilinguality (optional)](#req-multilinguality)
+- [INSPIRE-OAPIF-GeoJSON (optional)](#req-oapif-json)
 
 Future versions of this specification may include further conformance classes, in particular for 
 - direct access download, and
@@ -165,7 +165,8 @@ GET
 | --- | --- |
 | A | The Web API SHALL comply with the [OAPIF-core](http://www.opengis.net/spec/ogcapi-features-1/1.0/req/core) requirements class|
 
-**TEST** Tests defined by for [OAPIF CC Core](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_conformance_class_core) shall be satisfied.
+**TEST** 
+1. Tests defined by for [OAPIF CC Core](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_conformance_class_core) shall be satisfied.
 
 **NOTE** The Web API shall return collections and features in the default OAPIF coordinate reference system (WGS 84 longitude and latitude). However, the `enclosure` link for bulk download could still provide access to a data set in a different CRS.
 
@@ -186,13 +187,13 @@ GET
 
 **TEST**
 
-Issue an HTTP GET request to {root}/collections.
-Validate that at least one of the links returned in the response has `rel` link parameter `enclosure` (REQ003).
-For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, issue an HTTP HEAD request to the path given in the `href` link parameter of that link.
-For each of the responses:
-If the HTTP status code is 405 (Method Not Allowed), the test verdict is inclusive.
-If HTTP status code 200 is returned and content length > 0, the test verdict is “pass”.
-Otherwise, the test verdict is “fail”.
+1. Issue an HTTP GET request to {root}/collections.
+2. Validate that at least one of the links returned in the response has `rel` link parameter `enclosure` (REQ003).
+3. For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, issue an HTTP HEAD request to the path given in the `href` link parameter of that link.
+4. For each of the responses:
+    - If the HTTP status code is 405 (Method Not Allowed), the test verdict is inclusive.
+    - If HTTP status code 200 is returned and content length > 0, the test verdict is “pass”.
+    - Otherwise, the test verdict is “fail”.
 
 
 | **Requirement** | **/req/pre-defined/enclosure-type** |
@@ -200,9 +201,8 @@ Otherwise, the test verdict is “fail”.
 | A | A link with the relation type `enclosure` SHALL include the `type` link parameter containing a media type valid that is valid according to [RFC 6838]. |
 
 **TEST**
-
-Issue an HTTP GET request to `{root}/collections`.
-For each of the links returned in the response having a `rel` link parameter equal to `enclosure`,validate that the `type` parameter is present and the media type is valid according to [RFC 6838].
+1. Issue an HTTP GET request to `{root}/collections`.
+2. For each of the links returned in the response having a `rel` link parameter equal to `enclosure`,validate that the `type` parameter is present and the media type is valid according to [RFC 6838].
 
 
 **NOTE** Requirements for downloads of a whole data set available in more than one natural language are included in the requirements class INSPIRE-multilinguality.
@@ -277,13 +277,16 @@ Finally, the link with the link relation type `enclosure` provides a reference t
  
 **NOTE** According to the OAPIF standard a collection could also contain more than one spatial object type.
  
-**TEST** Manual check for every collection, that all its spatial objects belong to the same spatial object type.
+**TEST**
+1. Manual check for every collection, that all its spatial objects belong to the same spatial object type.
 
 | **Requirement** | **/req/pre-defined/collection-naming** |
 | --- | --- |
 | A | For each `collection` that provides data that is harmonised according to the [IRs for ISDSS], the name of the collection SHALL be the language-neutral name of the spatial object type as specified in the [IR-ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089). |
 
-**TEST** Check all collection names. If they have a recognised language neutral name, ok. If not -- MANUAL TEST: Check that these collections have not yet been harmonised.
+**TEST** 
+1. Check all collection names for a recognised language neutral name
+2. If no language-neutral name is available - MANUAL TEST: Check that the collections have not yet been harmonised.
 
 | **Requirement** | **/req/pre-defined/license** |
 | --- | --- |
@@ -365,8 +368,8 @@ As long as the response body supplied in a machine-readable format, such as JSON
 
 A workaround for this is the following procedure:
 1. Retrieve a list of languages of interest
-    a. For a EU-wide application, this could be a list of all EU official languages.
-    b. For another application, this could be a list of languages chosen by an end user.
+    - For a EU-wide application, this could be a list of all EU official languages.
+    - For another application, this could be a list of languages chosen by an end user.
 2. For every all language of interest, issue an HTTP HEAD request to the landing page (/) having HTTP header Accept-Language set to `language_of_interest_tag,*;q=0.0` (e.g. `en,*;q=0.0`).
 3. For every response: if the HTTP status code of the response is 200, add the language specified in Content-Language to the list of supported languages.
 
