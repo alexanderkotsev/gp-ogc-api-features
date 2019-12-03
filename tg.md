@@ -10,7 +10,7 @@
 * [4. Normative references](#normative-references)
 * [5. Terms and definitions](#terms-and-definitions)
 * [6. Symbols and abbreviated terms](#symbols-and-abbreviated-terms)
-* [7. INSPIRE Download Services based on OAPIF](#inspire-download-services-based-on-oapif)
+* [7. INSPIRE Download Services based on OAPIF](#inspire-oapif)
     * [7.1. Main principles](#main-principles)
     * [7.2. Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”](#req-pre-defined)
     * [7.3. Requirements class “INSPIRE-multilinguality”](#req-multilinguality)
@@ -41,9 +41,9 @@ For further details about the standard, see the [OGC API - Features GitHub space
 
 For a description of the main differences between WFS 2.0 and OGC API - Features, see [this section in the Guide on OGC API - Features](https://github.com/opengeospatial/ogcapi-features/blob/master/guide/section_8_WFS_2_0_v_3_0.adoc).
 
-## 2. Scope
+## 2. Scope <a name="scope"></a>
 This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of several ways of implementing INSPIRE Download services.
-## 3. Conformance
+## 3. Conformance <a name="conformance"></a>
 This specification defines the following requirements classes:
 
 - INSPIRE-pre-defined-dataset-download-OAPIF (mandatory)
@@ -56,7 +56,7 @@ Future versions of this specification may include further conformance classes, i
 
 The target of all requirements classes are “Web APIs”. Conformance with this specification shall be assessed using all the relevant conformance test cases specified in [Annex A (normative)](#ats) of this specification.
 
-## 4. Normative references
+## 4. Normative references <a name="normative-references"></a>
 
 - **[OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)** - OGC API - Features - Part 1: Core<sup>1</sup>
 - **[OpenAPI 3.0](https://swagger.io/docs/specification/about)** - OpenAPI specification v3.0 
@@ -69,7 +69,7 @@ The target of all requirements classes are “Web APIs”. Conformance with this
 - **[RSS 2.0](http://www.rssboard.org/rss-draft-1)** - Really Simple Syndication Specification - RSS 2.0 Specification 
 
 <sup>1</sup> The standard is in the process of being released by the ISO as ISO 19168-1.
-## 5. Terms and definitions
+## 5. Terms and definitions <a name="terms-and-definitions"></a>
 For the purposes of this document, the following terms and definitions apply:
 
 | Term | Definition | Source
@@ -89,7 +89,7 @@ For the purposes of this document, the following terms and definitions apply:
 **NOTE** ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
 - [ISO Online browsing platform](https://www.iso.org/obp)
 - [INSPIRE glossary](http://inspire.ec.europa.eu/glossary)
-## 6. Symbols and abbreviated terms
+## 6. Symbols and abbreviated terms <a name="symbols-and-abbreviated-terms"></a>
 | Abbreviation | Term |
 | --- | --- |
 | API |	Application Programming Interface |
@@ -99,7 +99,7 @@ For the purposes of this document, the following terms and definitions apply:
 | OAPIF | OGC API - Features |
 | URL |	Uniform Resource Locator |
 | WFS | Web Feature Service |
-## 7. INSPIRE Download Services based on OAPIF
+## 7. INSPIRE Download Services based on OAPIF <a name="inspire-oapif"></a>
 This section describes the requirements a Web API shall fulfill in order to be compliant with both ‘OGC API – Features’ and INSPIRE requirements for download services.
 ### Main principles
 
@@ -393,9 +393,7 @@ This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 20
 
 
 **REQ00x:** The Web API SHALL comply with OAPIF RC GeoJSON.
-
-
-## 8. Bibliography
+## 8. Bibliography <a name="bibliography"></a>
 - [W3C Data on the Web Best Practices](https://www.w3.org/TR/dwbp/)
 - [W3C Spatial Data on the Web Best Practices](https://www.w3.org/TR/sdw-bp/)
 - [INSPIRE UML-to-GeoJSON encoding rule](https://github.com/INSPIRE-MIF/2017.2/blob/master/GeoJSON/geojson-encoding-rule.md)
