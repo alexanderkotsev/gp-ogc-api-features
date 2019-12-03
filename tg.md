@@ -63,7 +63,7 @@ The target of all requirements classes are “Web APIs”. Conformance with this
 - **[IRs for NS](https://eur-lex.europa.eu/eli/reg/2009/976/oj)** - Regulation 976/2009 implementing Directive 2007/2/EC as regards the Network Services 
 - **[IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)** - Regulation 1089/2010 implementing Directive 2007/2/EC as regards interoperability of spatial data sets and services 
 - **[RFC 7231](https://tools.ietf.org/html/rfc7231)** - Hypertext Transfer Protocol (HTTP/1.1)
-- **[RFC 2616](https://www.w3.org/Protocols/rfc2616)** - 
+- **[RFC 2616](https://www.w3.org/Protocols/rfc2616)** - Hypertext Transfer Protocol (HTTP/1.1) - superseded version.
 - **[RFC 4647](https://tools.ietf.org/html/rfc4647)** - Phillips, A. and David, M. (eds.). Matching of Language Tags [online]. Internet Engineering Task Force, September 2006.
 - **[RFC 6838](https://tools.ietf.org/html/rfc6838)** - Media Type Specifications and Registration Procedures
 - **[RSS 2.0](http://www.rssboard.org/rss-draft-1)** - Really Simple Syndication Specification - RSS 2.0 Specification 
@@ -78,7 +78,7 @@ For the purposes of this document, the following terms and definitions apply:
 | data set | Identifiable collection of data. | [ISO 19115]()
 | distribution (of a data set) | A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above). | [DCAT](https://www.w3.org/TR/vocab-dcat-2/#Class:Distribution)
 | direct access download service | Service that enables copies of spatial data sets, or parts of such sets, to be downloaded. | [INSPIRE](http://inspire.ec.europa.eu/glossary/DownloadService)
-| encoding (rule) | | [ISO 19118?]
+| encoding (rule) | | [ISO 19118]
 | feature | Abstraction of real world phenomena. | [OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_feature)
 | feature collection | A set of features from a dataset. | [OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_feature_collection)
 | spatial object  | An abstract representation of a real-world phenomenon related to a specific location or geographical area | [INSPIRE](https://inspire.ec.europa.eu/glossary/SpatialObject)
@@ -108,6 +108,8 @@ This section describes the requirements a Web API shall fulfill in order to be c
     - http://my-org.eu/buildings/
 
 NOT http://my-org.eu/oapif/, http://my-org.eu/oapif/collections/addresses,  and http://my-org.eu/oapif/collections/buildings 
+
+&#x1F538; OPEN QUESTION: Would such an approach be feasible from an implementation point of view?
 
 - The data set is structured into one or several feature collections. Аll feature collections available in one API (under the `/collections` path) are considered to be part of the data set provided by the Web API.
 
