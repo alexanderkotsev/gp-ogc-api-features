@@ -15,8 +15,6 @@
     * [Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”](#req-pre-defined)
     * [Requirements class “INSPIRE-multilinguality”](#req-multilinguality)
     * [Requirements class “INSPIRE-OAPIF-GeoJSON”](#req-oapif-json)
-    * [Requirements class “INSPIRE-direct-access-download-OAPIF”](#req-inspire-direct) 
-    * [Requirements class “INSPIRE-QoS”](#req-inspire-qos)
 * [Bibliography](#bibliography)
 * [Annex A: Abstract Test Suite](#ats)
 * [Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)](#ir2oapif)
@@ -51,8 +49,10 @@ This specification defines the following requirements classes:
 1. INSPIRE-pre-defined-dataset-download-OAPIF (mandatory)
 2. INSPIRE-multilinguality (optional)
 3. INSPIRE-OAPIF-GeoJSON (optional)
-4. INSPIRE-direct-access-download-OAPIF (???) (optional)
-5. INSPIRE-OAPIF-QoS (???) (mandatory)
+
+Future versions of this specification may include further conformance classes, in particular
+- for direct access download
+- quality of service.
 
 The target of all requirements classes are “Web APIs”. Conformance with this specification shall be assessed using all the relevant conformance test cases specified in [Annex A (normative)](#ats) of this specification.
 
@@ -69,7 +69,7 @@ The target of all requirements classes are “Web APIs”. Conformance with this
 - **[RSS 2.0](http://www.rssboard.org/rss-draft-1)** - Really Simple Syndication Specification - RSS 2.0 Specification 
 
 <sup>1</sup> The standard is in the process of being released by the ISO as ISO 19168-1.
-## Terms and definitions <sup>2</sup>
+## Terms and definitions
 For the purposes of this document, the following terms and definitions apply:
 
 | Term | Definition | Source
@@ -86,7 +86,7 @@ For the purposes of this document, the following terms and definitions apply:
 | Web API | API using an architectural style that is founded on the technologies of the Web. | [DWBP](https://www.w3.org/TR/dwbp)
 
 
-<sup>2 </sup> ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
+**NOTE** ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
 - [ISO Online browsing platform](https://www.iso.org/obp)
 - [INSPIRE glossary](http://inspire.ec.europa.eu/glossary)
 ## Symbols and abbreviated terms
@@ -111,9 +111,7 @@ NOT http://my-org.eu/oapif/, http://my-org.eu/oapif/collections/addresses,  and 
 
 - The data set is structured into one or several feature collections. Аll feature collections available in one API (under the `/collections` path) are considered to be part of the data set provided by the Web API.
 
-- Every collection contains features of only one spatial object type<sup>3</sup>
-
-<sup>3</sup>According to the OAPIF standard a collection could contain also more than one spatial object type.
+- Every collection contains features of only one spatial object type.
 
 | INSPIRE resources | OAPIF resource | Sample path | Document reference(?) |
 | ------------- | ------------- | ------------- |-------------: |
@@ -160,28 +158,33 @@ GET
 | Dependency | RFC 7231 (Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content) |
 
 
-http://inspire.ec.europa.eu/id/spec/oapif-download/1.0/req/{req-id}
-http://inspire.ec.europa.eu/id/spec/oapif-download/1.0/rec/{rec-id}
+
 #### OAPIF requirements
 
-**REQ001:** The Web API SHALL comply with requirements class http://www.opengis.net/spec/ogcapi-features-1/1.0/req/core.
+| **Requirement** | **/req/pre-defined/oapif-core** |
+| --- | --- |
+| A | The Web API SHALL comply with the [OAPIF-core](http://www.opengis.net/spec/ogcapi-features-1/1.0/req/core) requirements class|
 
-TEST: Tests defined by for [OAPIF CC Core](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_conformance_class_core) shall be satisfied.
+**TEST** Tests defined by for [OAPIF CC Core](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_conformance_class_core) shall be satisfied.
 
-NOTE The Web API shall return collections and features in the default OAPIF coordinate reference system (WGS 84 longitude and latitude). However, the `enclosure` link for bulk download could still provide access to a data set in a different CRS.
+**NOTE** The Web API shall return collections and features in the default OAPIF coordinate reference system (WGS 84 longitude and latitude). However, the `enclosure` link for bulk download could still provide access to a data set in a different CRS.
 
-**REQ002:** The Web API SHALL comply with OAPIF requirements class OpenAPI 3.0 .<sup>4, 5</sup>
+| **Requirement** | **/req/pre-defined/openapi** |
+| --- | --- |
+| A | The Web API SHALL comply with OAPIF requirements class OpenAPI 3.0. |
 
-<sup>4 </sup> In the OAPIF standard, the [OpenAPI 3.0 Requirements class](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_requirements_class_openapi_3_0) is optional. This specification proposes to make it a mandatory requirement for INSPIRE in order to facilitate the development of client applications, and in particular adding support in the European INSPIRE geoportal.
+**NOTE 1** In the OAPIF standard, the [OpenAPI 3.0 Requirements class](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_requirements_class_openapi_3_0) is optional. This specification proposes to make it a mandatory requirement for INSPIRE in order to facilitate the development of client applications, and in particular adding support in the European INSPIRE geoportal.
 
-<sup>5 </sup>There are plans to add additional RCs for other API description standards (or standard versions) in the future (e.g. for OpenAPI v3.1). When additional requirements classes become available, this specification will be reviewed and possibly revised to include these as additional options.
+**NOTE 2** There are plans to add additional requirements classes for other API description standards (or standard versions) in the future (e.g. for OpenAPI v3.1). When additional requirements classes become available, this specification will be reviewed and possibly revised to include these as additional options.
 
-####INSPIRE-specific requirements
+#### INSPIRE-specific requirements
 ##### Download of the whole data set
 
-**REQ003:** The response of the `/collections` operation SHALL include at least one `enclosure` link that allows requesting a representation of the whole data set.
+| **Requirement** | **/req/pre-defined/enclosure** |
+| --- | --- |
+| A | The response of the `/collections` operation SHALL include at least one `enclosure` link that allows requesting a representation of the whole data set. |
 
-TEST:
+**TEST**
 
 Issue an HTTP GET request to {root}/collections.
 Validate that at least one of the links returned in the response has `rel` link parameter `enclosure` (REQ003).
@@ -192,27 +195,29 @@ If HTTP status code 200 is returned and content length > 0, the test verdict is 
 Otherwise, the test verdict is “fail”.
 
 
-**REQ004** A link with the relation type `enclosure` SHALL include the `type` link parameter containing a media type valid that is valid according to [RFC 6838].
+| **Requirement** | **/req/pre-defined/enclosure-type** |
+| --- | --- |
+| A | A link with the relation type `enclosure` SHALL include the `type` link parameter containing a media type valid that is valid according to [RFC 6838]. |
 
-TEST:
+**TEST**
 
 Issue an HTTP GET request to `{root}/collections`.
 For each of the links returned in the response having a `rel` link parameter equal to `enclosure`,validate that the `type` parameter is present and the media type is valid according to [RFC 6838].
 
-**REQ00x** A link with the link relation type “enclosure” SHALL include the `hreflang` link parameter containing the language of that distribution. The value of `hreflang` SHALL follow [RFC 4647].
 
-TEST:
-
-Issue an HTTP GET request to `{root}/collections`.
-For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, validate that the `hreflang` parameter is present.
-Check that the `hreflang` parameter  contains a language encoded in accordance with [RFC 4647]
-
-**REC001** A link with the link relation type `enclosure` SHOULD include the `length` link parameter containing the length in bytes.
-
-**REC002** The link(s) with the link relation type `enclosure` SHOULD include the `title` link parameter containing a human-friendly name.
+**NOTE** Requirements for downloads of a whole data set available in more than one natural language are included in the requirements class INSPIRE-multilinguality.
 
 
-**EXAMPLE** Feature collections response document
+| **Recommendation** | **/rec/pre-defined/enclosure-length** |
+| --- | --- |
+| A | A link with the link relation type `enclosure` SHOULD include the `length` link parameter containing the length in bytes. |
+
+| **Recommendation** | **/rec/pre-defined/enclosure-title** |
+| --- | --- |
+| A | The link(s) with the link relation type `enclosure` SHOULD include the `title` link parameter containing a human-friendly name. |
+
+
+**EXAMPLE** Feature collections response document (adapted from [OAPIF]())
 
 This feature collections example response in JSON is for a dataset with a single collection "buildings". It includes links to the features resource in all formats that are supported by the service (link relation type: `items`).
 
@@ -231,8 +236,8 @@ Finally, the link with the link relation type `enclosure` provides a reference t
   	"rel": "self", "type": "application/json", "title": "this document" },
 	{ "href": "http://data.example.org/collections.html",
   	"rel": "alternate", "type": "text/html", "title": "this document as HTML" },
-	{ "href": "http://schemas.example.org/1.0/buildings.xsd",
-  	"rel": "describedBy", "type": "application/xml", "title": "GML application schema for Acme Corporation building data" },
+	{ "href": "http://inspire.ec.europa.eu/schemas/bu-core2d/4.0/BuildingsCore2D.xsd",
+  	"rel": "describedBy", "type": "application/xml", "title": "The 2D application schema for INSPIRE theme buildings." },
 	{ "href": "http://download.example.org/buildings.gpkg",
   	"rel": "enclosure", "type": "application/geopackage+sqlite3", "title": "Pre-defined data set download (GeoPackage)", "length": 472546 }
   ],
@@ -266,21 +271,27 @@ Finally, the link with the link relation type `enclosure` provides a reference t
 ```
 ##### Organisation of a dataset in feature collections
 
-**REQ005:** Every collection SHALL contain features of only one spatial object type
+| **Requirement** | **/req/pre-defined/spatial-object-type** |
+| --- | --- |
+| A | Every collection SHALL contain features of only one spatial object type
  
-NOTE According to the OAPIF standard a collection could also contain more than one spatial object type.
+**NOTE** According to the OAPIF standard a collection could also contain more than one spatial object type.
  
-MANUAL TEST: Check for every collection, that all its spatial objects belong to the same spatial object type.
+**TEST** Manual check for every collection, that all its spatial objects belong to the same spatial object type.
 
-**REQ006:** For each `collection` that provides data that is harmonised according to the [IRs for ISDSS], the name of the collection SHALL be the language-neutral name of the spatial object type as specified in the [IR-ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089).
+| **Requirement** | **/req/pre-defined/collection-naming** |
+| --- | --- |
+| A | For each `collection` that provides data that is harmonised according to the [IRs for ISDSS], the name of the collection SHALL be the language-neutral name of the spatial object type as specified in the [IR-ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089). |
 
-TEST: Check all collection names. If they have a recognised language neutral name, ok. If not -- MANUAL TEST: Check that these collections have not yet been harmonised.
+**TEST** Check all collection names. If they have a recognised language neutral name, ok. If not -- MANUAL TEST: Check that these collections have not yet been harmonised.
 
+| **Requirement** | **/req/pre-defined/license** |
+| --- | --- |
+| A | Link to the licensing information SHALL be provided for the data set made available through the Web API. |
 
-
-**REQ007** Link to the licensing information SHALL be provided for the data set made available through the Web API. 
-
-**REC003** The license information for the exposed data set SHOULD be provided in accordance with OpenAPI 3.0. A proposal for mapping between INSPIRE NS Metadata elements and OpenAPI definition fields is available in [Annex C](#inspire-ns-openapi)
+| **Recommendation** | **/rec/pre-defined/license-openapi** |
+| --- | --- |
+| A | The license information for the exposed data set SHOULD be provided in accordance with OpenAPI 3.0. A proposal for mapping between INSPIRE NS Metadata elements and OpenAPI definition fields is available in [Annex C](#inspire-ns-openapi) |
 
 ### Requirements class INSPIRE-multilinguality <a name="req-multilinguality"></a>
 #### INSPIRE-specific requirements
@@ -288,11 +299,12 @@ TEST: Check all collection names. If they have a recognised language neutral nam
 
 The requirements from the [IRs for NS] to support requests in different natural languages are met in the Web API through HTTP language negotiation, using HTTP headers as specified in [RFC 7231] and language tags as specified in [RFC 4647].
 
-In addition, support for different natural languages for bulk download is met as described in section “Download of the whole dataset”.
 
-**REQ008:** The Web API SHALL support the `Accept-Language` header in requests to the landing page (/), /collections, /collections/{collectionId}, /collections/{collectionId}/items and /collections/{collectionId}/items/{featureId} in accordance with [RFC 7231] and [RFC 4647]. The Web API SHALL return HTTP status code 406 when an Accept-Language HTTP header set to `*;q=0.0` is sent.
+| **Requirement** | **/req/multilinguality/accept-language-header** |
+| --- | --- |
+| A | The Web API SHALL support the `Accept-Language` header in requests to the landing page (/), /collections, /collections/{collectionId}, /collections/{collectionId}/items and /collections/{collectionId}/items/{featureId} in accordance with [RFC 7231] and [RFC 4647]. The Web API SHALL return HTTP status code 406 when an Accept-Language HTTP header set to `*;q=0.0` is sent. |
 
-TEST:
+**TEST**
 Issue an HTTP GET request with an Accept-Language HTTP header containing a valid language tag to the following URLs: {root}/ and {root}/collections. For every feature collection identified in the response of {root}/collections, issue an HTTP request with an Accept-Language HTTP header containing a valid language tag to {root}/collections/{collectionId}, {root}/collections/{collectionId}/items.
 For every response, validate that the HTTP status code is 200.
 Issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to the following URLs: {root}/ and {root}/collections. For every feature collection identified in step 1, issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to {root}/collections/{collectionId} and {root}/collections/{collectionId}/items.
@@ -300,15 +312,19 @@ For every response, validate that the HTTP status code is 406.
 
 &#x1F538; OPEN QUESTION: How to test for /collections/{collectionId}/items/{featureId}? It would give way too much overhead to test every single feature. One feature? One feature in every collection?
 
-**REQ009:** The Web API SHALL include the `Content-Language` HTTP header in the response for a request to its landing page (/).
+| **Requirement** | **/req/multilinguality/content-language-root** |
+| --- | --- |
+| A | The Web API SHALL include the `Content-Language` HTTP header in the response for a request to its landing page (/). |
 
-TEST:
+**TEST**
 Issue an HTTP GET request with an Accept-Language HTTP header containing a valid language tag to URL {root}/.
 Validate that a response is returned with a `Content-Language` HTTP header.
 Issue an HTTP GET request without a Accept-Language HTTP header to URL {root}/.
 Validate that a response is returned with a `Content-Language` HTTP header.
 
-**REC004:** The Web API SHOULD take the language specified in the `Accept-Language` HTTP header of a request to all paths into account. The Web API SHOULD include the `Content-Language` HTTP header in the response for a request to all paths.
+| **Recommendation** | **/rec/multilinguality/content-language-paths** |
+| --- | --- |
+| A | The Web API SHOULD take the language specified in the `Accept-Language` HTTP header of a request to all paths into account. The Web API SHOULD include the `Content-Language` HTTP header in the response for a request to all paths. |
 
 ##### Internationalization: supported languages
 
@@ -316,7 +332,9 @@ Validate that a response is returned with a `Content-Language` HTTP header.
 
 [RFC 2616] does not define what such a response body exactly should look like, see also Annex B, and no other existing specifications have been identified that define this. As one of the principles in this specification is not to have any INSPIRE-specific extensions or requirements, this specification therefore does not give a stronger recommendation than REC00x. This specification may be updated when the response body returned with HTTP status code 406 is standardised.
 
-**REC005:** The Web API SHOULD return a response with a response body containing a list of all supported languages for requests with the Accept-Language HTTP header set to `*;q=0.0` to the landing page (/), /collections, /collections/{collectionId}, /collections/{collectionId}/items and /collections/{collectionId}/items/{featureId}.
+| **Recommendation** | **/rec/pre-defined/accept-language-header** |
+| --- | --- |
+| A | The Web API SHOULD return a response with a response body containing a list of all supported languages for requests with the Accept-Language HTTP header set to `*;q=0.0` to the landing page (/), /collections, /collections/{collectionId}, /collections/{collectionId}/items and /collections/{collectionId}/items/{featureId}. |
 
 When HTML is acceptable for the client and the Web API conforms to OAPIF Conformance Class HTML, this could look as follows:
 
@@ -359,17 +377,23 @@ REQ00x and REC00x regarding support for Accept-Language and Content-Languages
 
 &#x1F538; OPEN QUESTION: Do you have any other proposals for how to implement the requirement for the download service to advertise the natural languages it supports?
 
+| **Requirement** | **/req/multilinguality/hreflang** |
+| --- | --- |
+| A | A link with the link relation type “enclosure” SHALL include the `hreflang` link parameter containing the language of that distribution. The value of `hreflang` SHALL follow [RFC 4647]. |
+
+**TEST**
+
+Issue an HTTP GET request to `{root}/collections`.
+For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, validate that the `hreflang` parameter is present.
+Check that the `hreflang` parameter  contains a language encoded in accordance with [RFC 4647]
+
 ### Requirements class “INSPIRE-OAPIF-GeoJSON” <a name="req-oapif-json"></a>
 
 This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 2017.2 for Addresses and Environmental Monitoring Features).
 
-### Requirements class “INSPIRE-direct-access-download-OAPIF” <a name="req-inspire-direct"></a>
-
-FUTURE WORK: RC/EXTENSION Filter – might be needed for direct access download services
-
 
 **REQ00x:** The Web API SHALL comply with OAPIF RC GeoJSON.
-### Requirements class “INSPIRE-QoS” <a name="req-inspire-qos"></a>
+
 
 ## Bibliography
 - [W3C Data on the Web Best Practices](https://www.w3.org/TR/dwbp/)
