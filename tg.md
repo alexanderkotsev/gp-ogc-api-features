@@ -50,8 +50,8 @@ This specification defines the following requirements classes:
 - INSPIRE-multilinguality (optional)
 - INSPIRE-OAPIF-GeoJSON (optional)
 
-Future versions of this specification may include further conformance classes, in particular
-- for direct access download
+Future versions of this specification may include further conformance classes, in particular for 
+- direct access download, and
 - quality of service.
 
 The target of all requirements classes are “Web APIs”. Conformance with this specification shall be assessed using all the relevant conformance test cases specified in [Annex A (normative)](#ats) of this specification.
@@ -101,7 +101,7 @@ For the purposes of this document, the following terms and definitions apply:
 | WFS | Web Feature Service |
 ## 7. INSPIRE Download Services based on OAPIF <a name="inspire-oapif"></a>
 This section describes the requirements a Web API shall fulfill in order to be compliant with both ‘OGC API – Features’ and INSPIRE requirements for download services.
-### Main principles
+### 7.1. Main principles <a name="main-principles"></a>
 
 - The Web API provides download access to one INSPIRE data set. For example, two data sets (with their own metadata records), one on buildings and one on addresses will have two landing pages:
     - http://my-org.eu/addresses/
@@ -149,7 +149,7 @@ Feature
 GET
 7.16 Feature
  
-### Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”  <a name="req-pre-defined"></a>
+### 7.2. Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”  <a name="req-pre-defined"></a>
 
 | Requirements class | http://inspire.ec.europa.eu/id/spec/oapif-download/1.0/req/pre-defined |
 | --- | --- |
@@ -159,7 +159,7 @@ GET
 
 
 
-#### OAPIF requirements
+#### 7.2.1. OAPIF requirements
 
 | **Requirement** | **/req/pre-defined/oapif-core** |
 | --- | --- |
@@ -177,7 +177,7 @@ GET
 
 **NOTE 2** There are plans to add additional requirements classes for other API description standards (or standard versions) in the future (e.g. for OpenAPI v3.1). When additional requirements classes become available, this specification will be reviewed and possibly revised to include these as additional options.
 
-#### INSPIRE-specific requirements
+#### 7.2.2. INSPIRE-specific requirements
 ##### Download of the whole data set
 
 | **Requirement** | **/req/pre-defined/enclosure** |
@@ -293,8 +293,8 @@ Finally, the link with the link relation type `enclosure` provides a reference t
 | --- | --- |
 | A | The license information for the exposed data set SHOULD be provided in accordance with OpenAPI 3.0. A proposal for mapping between INSPIRE NS Metadata elements and OpenAPI definition fields is available in [Annex C](#inspire-ns-openapi) |
 
-### Requirements class INSPIRE-multilinguality <a name="req-multilinguality"></a>
-#### INSPIRE-specific requirements
+### 7.3. Requirements class INSPIRE-multilinguality <a name="req-multilinguality"></a>
+#### 7.3.1. INSPIRE-specific requirements
 ##### Internationalization: request and response language
 
 The requirements from the [IRs for NS] to support requests in different natural languages are met in the Web API through HTTP language negotiation, using HTTP headers as specified in [RFC 7231] and language tags as specified in [RFC 4647].
@@ -305,10 +305,10 @@ The requirements from the [IRs for NS] to support requests in different natural 
 | A | The Web API SHALL support the `Accept-Language` header in requests to the landing page (/), /collections, /collections/{collectionId}, /collections/{collectionId}/items and /collections/{collectionId}/items/{featureId} in accordance with [RFC 7231] and [RFC 4647]. The Web API SHALL return HTTP status code 406 when an Accept-Language HTTP header set to `*;q=0.0` is sent. |
 
 **TEST**
-Issue an HTTP GET request with an Accept-Language HTTP header containing a valid language tag to the following URLs: {root}/ and {root}/collections. For every feature collection identified in the response of {root}/collections, issue an HTTP request with an Accept-Language HTTP header containing a valid language tag to {root}/collections/{collectionId}, {root}/collections/{collectionId}/items.
-For every response, validate that the HTTP status code is 200.
-Issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to the following URLs: {root}/ and {root}/collections. For every feature collection identified in step 1, issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to {root}/collections/{collectionId} and {root}/collections/{collectionId}/items.
-For every response, validate that the HTTP status code is 406.
+1. Issue an HTTP GET request with an Accept-Language HTTP header containing a valid language tag to the following URLs: {root}/ and {root}/collections. For every feature collection identified in the response of {root}/collections, issue an HTTP request with an Accept-Language HTTP header containing a valid language tag to {root}/collections/{collectionId}, {root}/collections/{collectionId}/items.
+2. For every response, validate that the HTTP status code is 200.
+3. Issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to the following URLs: {root}/ and {root}/collections. For every feature collection identified in step 1, issue an HTTP GET request with the Accept-Language header set to `*;q=0.0` to {root}/collections/{collectionId} and {root}/collections/{collectionId}/items.
+4. For every response, validate that the HTTP status code is 406.
 
 &#x1F538; OPEN QUESTION: How to test for /collections/{collectionId}/items/{featureId}? It would give way too much overhead to test every single feature. One feature? One feature in every collection?
 
@@ -317,10 +317,10 @@ For every response, validate that the HTTP status code is 406.
 | A | The Web API SHALL include the `Content-Language` HTTP header in the response for a request to its landing page (/). |
 
 **TEST**
-Issue an HTTP GET request with an Accept-Language HTTP header containing a valid language tag to URL {root}/.
-Validate that a response is returned with a `Content-Language` HTTP header.
-Issue an HTTP GET request without a Accept-Language HTTP header to URL {root}/.
-Validate that a response is returned with a `Content-Language` HTTP header.
+1. Issue an HTTP GET request with an Accept-Language HTTP header containing a valid language tag to URL {root}/.
+2. Validate that a response is returned with a `Content-Language` HTTP header.
+3. Issue an HTTP GET request without a Accept-Language HTTP header to URL {root}/.
+4. Validate that a response is returned with a `Content-Language` HTTP header.
 
 | **Recommendation** | **/rec/multilinguality/content-language-paths** |
 | --- | --- |
@@ -330,7 +330,7 @@ Validate that a response is returned with a `Content-Language` HTTP header.
 
 &#x1F538; OPEN QUESTION: Would the proposed approach based on HTTP standards be easily implementable by solutions. 
 
-[RFC 2616] does not define what such a response body exactly should look like, see also Annex B, and no other existing specifications have been identified that define this. As one of the principles in this specification is not to have any INSPIRE-specific extensions or requirements, this specification therefore does not give a stronger recommendation than REC00x. This specification may be updated when the response body returned with HTTP status code 406 is standardised.
+[RFC 2616] does not define what such a response body exactly should look like, see also Annex B, and no other existing specifications have been identified that define this. As one of the principles in this specification is not to have any INSPIRE-specific extensions or requirements, this specification therefore does not give a stronger recommendation. This specification may be updated when the response body returned with HTTP status code 406 is standardised.
 
 | **Recommendation** | **/rec/pre-defined/accept-language-header** |
 | --- | --- |
@@ -364,15 +364,15 @@ Content-Language: en
 As long as the response body supplied in a machine-readable format, such as JSON, sent with HTTP status code 406, is not standardised, it is not possible to build applications, such as the INSPIRE Geoportal, that programmatically can access a list of supported languages and display that information to an end user.
 
 A workaround for this is the following procedure:
-Retrieve a list of languages of interest
-For a EU-wide application, this could be a list of all EU official languages.
-For another application, this could be a list of languages chosen by an end user.
-For every all language of interest, issue an HTTP HEAD request to the landing page (/) having HTTP header Accept-Language set to `language_of_interest_tag,*;q=0.0` (e.g. `en,*;q=0.0`).
-For every response: if the HTTP status code of the response is 200, add the language specified in Content-Language to the list of supported languages.
+1. Retrieve a list of languages of interest
+    a. For a EU-wide application, this could be a list of all EU official languages.
+    b. For another application, this could be a list of languages chosen by an end user.
+2. For every all language of interest, issue an HTTP HEAD request to the landing page (/) having HTTP header Accept-Language set to `language_of_interest_tag,*;q=0.0` (e.g. `en,*;q=0.0`).
+3. For every response: if the HTTP status code of the response is 200, add the language specified in Content-Language to the list of supported languages.
 
 This workaround presumes that the following requirements and recommendations are followed:
-Recommendation 2 of OGC API - Features - Part 1, regarding the support of HTTP method HEAD
-REQ00x and REC00x regarding support for Accept-Language and Content-Languages
+- [Recommendation 2 of OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_http_1_1), regarding the support of HTTP method HEAD
+- REQ00x and REC00x regarding support for Accept-Language and Content-Languages
 
 
 &#x1F538; OPEN QUESTION: Do you have any other proposals for how to implement the requirement for the download service to advertise the natural languages it supports?
@@ -383,45 +383,32 @@ REQ00x and REC00x regarding support for Accept-Language and Content-Languages
 
 **TEST**
 
-Issue an HTTP GET request to `{root}/collections`.
-For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, validate that the `hreflang` parameter is present.
-Check that the `hreflang` parameter  contains a language encoded in accordance with [RFC 4647]
+1. Issue an HTTP GET request to `{root}/collections`.
+2. For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, validate that the `hreflang` parameter is present.
+3. Check that the `hreflang` parameter  contains a language encoded in accordance with [RFC 4647]
 
-### Requirements class “INSPIRE-OAPIF-GeoJSON” <a name="req-oapif-json"></a>
+### 7.4. Requirements class “INSPIRE-OAPIF-GeoJSON” <a name="req-oapif-json"></a>
 
-This RC is relevant when using a (Geo-)JSON encoding (e.g. those developed in 2017.2 for Addresses and Environmental Monitoring Features).
+#### 7.4.1. INSPIRE-specific requirements
+This requirements class is relevant when providing access to INSPIRE data encoded as (Geo-)JSON. (e.g. those developed in 2017.2 for Addresses and Environmental Monitoring Features).
 
 
-**REQ00x:** The Web API SHALL comply with OAPIF RC GeoJSON.
+| **Requirement** | **/req/geojson/oapif-geojson** |
+| --- | --- |
+| A | The Web API SHALL comply with OAPIF RC GeoJSON. |
+
+
 ## 8. Bibliography <a name="bibliography"></a>
 - [W3C Data on the Web Best Practices](https://www.w3.org/TR/dwbp/)
 - [W3C Spatial Data on the Web Best Practices](https://www.w3.org/TR/sdw-bp/)
 - [INSPIRE UML-to-GeoJSON encoding rule](https://github.com/INSPIRE-MIF/2017.2/blob/master/GeoJSON/geojson-encoding-rule.md)
-- [Alla] ALLAMARAJU, Subbu. RESTful Web services cookbook. O’Reilly Media, 2010. ISBN 978-0-596-80168-7.
+- [Alla] Allamaraju, S. RESTful Web services cookbook. O’Reilly Media, 2010. ISBN 978-0-596-80168-7.
 - [SO1] [How to properly send 406 status code?](https://stackoverflow.com/questions/4422980/how-to-properly-send-406-status-code)
 - [SO2] [Format for 406 Not Acceptable payload?](https://stackoverflow.com/questions/50102277/format-for-406-not-acceptable-payload)
 
 # Annex A: Abstract Test Suite <a name="ats"></a>
 
-## Conformance class “INSPIRE-pre-defined-dataset-download-OAPIF”
-
-### Title of the requirement / test
-
-**Purpose**: Test requirement x
-
-**Prerequisites**:
-
-**Test method**: 
-
-* Check that the [ExtendedCapabilities](#ExtendedCapabilities) exists. If it does
-  * Validate the [ExtendedCapabilities](#ExtendedCapabilities) element and its children according to the XML Schema definition for the WFS INSPIRE ExtendedCapabilities as defined in the http://inspire.ec.europa.eu/schemas/inspire_dls/1.0/inspire_dls.xsd
-  * If the validation passes, pass the test.
-* If no ExtendedCapabilities were found or validation fails, fail the test.
-
-**Test type**: Automated / Manual
-
-**Notes**:
-
+**NOTE** Detailed ATS will be developed in the next version of the document.
 # Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions) <a name="ir2oapif"></a>
 ## Predefined access download service
 
