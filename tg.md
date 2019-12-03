@@ -31,7 +31,7 @@ Therefore, this document describes an additional option for the implementation o
 
 ### OGC API - Features - a brief overview
 
-OGC API standards define modular API building blocks to spatially enable Web APIs in a consistent way. The [OpenAPI specification](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#OpenAPI) is used to define the API building blocks.
+OGC API standards define modular API parts that spatially enable Web APIs in a consistent way. The [OpenAPI specification](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#OpenAPI) is used to define the API building blocks.
 
 OGC API - Features provides API building blocks to create, modify and query features on the Web. OGC API - Features is comprised of multiple parts, each of them is a separate standard. The ["Core"](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html) part specifies the core capabilities and is restricted to fetching features where geometries are represented in the WGS 84 coordinate reference system with axis order longitude/latitude. Additional capabilities that address more advanced needs will be specified in additional parts. 
 
@@ -163,7 +163,7 @@ GET
 
 | **Requirement** | **/req/pre-defined/oapif-core** |
 | --- | --- |
-| A | The Web API SHALL comply with the [OAPIF-core](http://www.opengis.net/spec/ogcapi-features-1/1.0/req/core) requirements class|
+| A | The Web API SHALL comply with the [OAPIF-core](http://www.opengis.net/spec/ogcapi-features-1/1.0/req/core) requirements class.|
 
 **TEST** 
 1. Tests defined by for [OAPIF CC Core](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_conformance_class_core) shall be satisfied.
@@ -198,11 +198,11 @@ GET
 
 | **Requirement** | **/req/pre-defined/enclosure-type** |
 | --- | --- |
-| A | A link with the relation type `enclosure` SHALL include the `type` link parameter containing a media type valid that is valid according to [RFC 6838]. |
+| A | A link with the relation type `enclosure` SHALL include the `type` link parameter containing a media type valid that is valid according to [RFC 6838](https://tools.ietf.org/html/rfc6838). |
 
 **TEST**
 1. Issue an HTTP GET request to `{root}/collections`.
-2. For each of the links returned in the response having a `rel` link parameter equal to `enclosure`,validate that the `type` parameter is present and the media type is valid according to [RFC 6838].
+2. For each of the links returned in the response having a `rel` link parameter equal to `enclosure`,validate that the `type` parameter is present and the media type is valid according to [RFC 6838](https://tools.ietf.org/html/rfc6838).
 
 
 **NOTE** Requirements for downloads of a whole data set available in more than one natural language are included in the requirements class INSPIRE-multilinguality.
@@ -217,7 +217,7 @@ GET
 | A | The link(s) with the link relation type `enclosure` SHOULD include the `title` link parameter containing a human-friendly name. |
 
 
-**EXAMPLE** Feature collections response document (adapted from [OAPIF]())
+**EXAMPLE** Feature collections response document (adapted from [OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_response_4))
 
 - This feature collections example response in JSON is for a dataset with a single collection "buildings". It includes links to the features resource in all formats that are supported by the service (link relation type: `items`).
 
@@ -294,9 +294,15 @@ GET
 
 | **Recommendation** | **/rec/pre-defined/license-openapi** |
 | --- | --- |
-| A | The license information for the exposed data set SHOULD be provided in accordance with OpenAPI 3.0. A proposal for mapping between INSPIRE NS Metadata elements and OpenAPI definition fields is available in [Annex C](#inspire-ns-openapi) |
+| A | The license information for the exposed data set SHOULD be provided in accordance with OpenAPI 3.0. A proposal for mapping between INSPIRE NS Metadata elements and OpenAPI definition fields is available in [Annex C.](#inspire-ns-openapi) |
 
 ### 7.3. Requirements class INSPIRE-multilinguality <a name="req-multilinguality"></a>
+| Requirements class | http://inspire.ec.europa.eu/id/spec/oapif-download/1.0/req/multilinguality |
+| --- | --- |
+| Target type | Web API |
+| Dependency | [INSPIRE-pre-defined-dataset-download-OAPIF](#req-pre-defined)  |
+
+
 #### 7.3.1. INSPIRE-specific requirements
 ##### Internationalisation: request and response language
 
@@ -390,14 +396,22 @@ This workaround presumes that the following requirements and recommendations are
 
 ### 7.4. Requirements class “INSPIRE-OAPIF-GeoJSON” <a name="req-oapif-json"></a>
 
+| Requirements class | http://inspire.ec.europa.eu/id/spec/oapif-download/1.0/req/geojson |
+| --- | --- |
+| Target type | Web API |
+| Dependency | [INSPIRE-pre-defined-dataset-download-OAPIF](#req-pre-defined)  |
+
 #### 7.4.1. INSPIRE-specific requirements
 This requirements class is relevant when providing access to INSPIRE data encoded as (Geo-)JSON. (e.g. those developed in 2017.2 for Addresses and Environmental Monitoring Features).
 
 
 | **Requirement** | **/req/geojson/oapif-geojson** |
 | --- | --- |
-| A | The Web API SHALL comply with OAPIF RC GeoJSON. |
+| A | The Web API SHALL comply with [OAPIF requirements class GeoJSON](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_requirements_class_geojson). |
 
+| **Recommendation** | **/rec/geojson/geojson-inspire** |
+| --- | --- |
+| A | For each `collection` which is encoded as GeoJSON and provides harmonised data according to the [[IRs for ISDSS]](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089), the Web API SHOULD follow the [INSPIRE UML-to-GeoJSON encoding rule.](https://github.com/INSPIRE-MIF/2017.2/blob/master/GeoJSON/geojson-encoding-rule.md) |
 
 ## 8. Bibliography <a name="bibliography"></a>
 - [W3C Data on the Web Best Practices](https://www.w3.org/TR/dwbp/)
@@ -429,7 +443,7 @@ This requirements class is relevant when providing access to INSPIRE data encode
 
 # Annex C: Mapping between INSPIRE NS Metadata elements and OpenAPI definition fields  <a name="inspire-ns-openapi"></a>
 
-This guidance document proposes a lightweight mapping approach between INSPIRE Network service metadata elements and OpenAPI definition. No extensions of OpenAPI terms are foreseen.<sup>6</sup>
+This guidance document proposes a lightweight mapping approach between INSPIRE Network service metadata elements and OpenAPI definition. No extensions of OpenAPI terms are foreseen.
 
 | INSPIRE NS Metadata element | OpenAPI field names |
 | ------------ | ------------ |
@@ -455,9 +469,9 @@ Unique Resource Identifier (M)
 &#x1F538; OPEN QUESTION: Would the proposed lightweight mapping to OpenAPI i.e. without extensions of OpenAPI terms (terms beginning with ‘x-’ in accordance with the [OpenAPI specs](https://swagger.io/docs/specification/openapi-extensions)) be sufficient?
 
 --- 
-<sup>6 </sup>Additional metadata elements can be added to an OpenAPI definition through [extensions](https://swagger.io/docs/specification/openapi-extensions/), implemented through the introduction of fields beginning with `x-`. However, in order to streamline the implementation of metadata, this document does not propose any INSPIRE-specific extensions. 
+**NOTE** Additional metadata elements can be added to an OpenAPI definition through [extensions](https://swagger.io/docs/specification/openapi-extensions/), implemented through the introduction of fields beginning with `x-`. However, in order to streamline the implementation of metadata, this document does not propose any INSPIRE-specific extensions. 
 # Annex D. Supported languages  <a name="supported-lang"></a>
-According to [RFC 7231]:
+According to [RFC 7231](https://tools.ietf.org/html/rfc7231):
 
 >   The 406 (Not Acceptable) status code indicates that the target resource does not have a current representation that would be acceptable to the user agent, according to the proactive negotiation header fields received in the request (Section 5.3), and the server is unwilling to supply a default representation.
 
