@@ -1,7 +1,7 @@
 # Setting up an INSPIRE Download service based on the OGC API-Features standard
 
 `Version: 0.1`
-`Date: 2019-12-03`
+`Date: 2019-12-04`
 
 ## Table of Contents
 * [1. Introduction](#introduction)
@@ -50,7 +50,7 @@ This document proposes a technical approach for implementing the requirements se
 This specification defines the following requirements classes:
 
 - [INSPIRE-pre-defined-dataset-download-OAPIF (mandatory)](#req-pre-defined)
-- [INSPIRE-multilinguality (conditional)<sup>1</sup>](#req-multilinguality)
+- [INSPIRE-multilinguality (conditional)<sup> 1</sup>](#req-multilinguality)
 - [INSPIRE-OAPIF-GeoJSON (optional)](#req-oapif-json)
 
 <sup>1 </sup>The INSPIRE-multilinguality RC is mandatory for all data sets that contain information in more than one natural language.
@@ -63,7 +63,7 @@ The target of all requirements classes are “Web APIs”. Conformance with this
 
 ## 4. Normative references <a name="normative-references"></a>
 
-- **[OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)** - OGC API - Features - Part 1: Core<sup>2</sup>
+- **[OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)** - OGC API - Features - Part 1: Core<sup> 2</sup>
 - **[OpenAPI 3.0](https://swagger.io/docs/specification/about)** - OpenAPI specification v3.0 
 - **[IRs for NS](https://eur-lex.europa.eu/eli/reg/2009/976/oj)** - Regulation 976/2009 implementing Directive 2007/2/EC as regards the Network Services 
 - **[IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)** - Regulation 1089/2010 implementing Directive 2007/2/EC as regards interoperability of spatial data sets and services 
@@ -73,7 +73,7 @@ The target of all requirements classes are “Web APIs”. Conformance with this
 - **[RFC 6838](https://tools.ietf.org/html/rfc6838)** - Media Type Specifications and Registration Procedures
 - **[RSS 2.0](http://www.rssboard.org/rss-draft-1)** - Really Simple Syndication Specification - RSS 2.0 Specification 
 
-<sup>2</sup> The standard is in the process of being released by the ISO as ISO 19168-1.
+<sup>2 </sup> The standard is in the process of being released by the ISO as ISO 19168-1.
 ## 5. Terms and definitions <a name="terms-and-definitions"></a>
 For the purposes of this document, the following terms and definitions apply:
 
