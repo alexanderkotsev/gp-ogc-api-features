@@ -92,7 +92,7 @@ For the purposes of this document, the following terms and definitions apply:
 | Web API | API using an architectural style that is founded on the technologies of the Web. | [DWBP](https://www.w3.org/TR/dwbp)
 
 
-**NOTE 1** ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
+**NOTE** ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
 - [ISO Online browsing platform](https://www.iso.org/obp)
 - [INSPIRE glossary](http://inspire.ec.europa.eu/glossary)
 
@@ -118,42 +118,13 @@ This section describes the requirements a Web API shall fulfill in order to be c
 
 - Every collection contains features of only one feature type.
 
-| INSPIRE resources | OAPIF resource | Sample path | Document reference(?) |
+| INSPIRE resources | OAPIF resource | Sample path | Document reference |
 | ------------- | ------------- | ------------- |-------------: |
 | Data set (all distributions) | Landing page | http://my-org.eu/addresses/ <br> http://my-org.eu/buildings/ | [OAPIF 7.2 API landing page](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_api_landing_page) |
 | Data set description | Feature collections |
 | Spatial object type | Feature collection | http://my-org.eu/addresses/collections/address | [OAPIF 7.14 Feature collection](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_collection_) |
 | Spatial objects | Features | http://my-org.eu/addresses/collections/address/items | [OAPIF 7.15 Features](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_items_) |
 | Spatial object | Feature | http://my-org.eu/addresses/collections/address/items/{featureId} | [OAPIF 7.16 Feature](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_feature_) |
-
-Resource
-Path
-HTTP method
-Document reference
-Landing page
-/
-GET
-7.2 API landing page
-Conformance declaration
-/conformance
-GET
-7.4 Declaration of conformance classes
-Feature collections
-/collections
-GET
-7.13 Feature collections
-Feature collection
-/collections/{collectionId}
-GET
-7.14 Feature collection
-Features
-/collections/{collectionId}/items
-GET
-7.15 Features
-Feature
-/collections/{collectionId}/items/{featureId}
-GET
-7.16 Feature
  
 ### 7.2. Requirements class “INSPIRE-pre-defined-dataset-download-OAPIF”  <a name="req-pre-defined"></a>
 
