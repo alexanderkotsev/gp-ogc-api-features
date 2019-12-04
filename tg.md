@@ -17,23 +17,26 @@
     * [7.4. Requirements class “INSPIRE-OAPIF-GeoJSON”](#req-oapif-json)
 * [8. Bibliography](#bibliography)
 * [Annex A: Abstract Test Suite](#ats)
-* [Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions)](#ir2oapif)
+* [Annex B: Mapping the requirements from the IRs to the OGC  API - Features standard (and extensions)](#ir2oapif)
 * [Annex C: Mapping between INSPIRE Network services metadata and OpenAPI definitions](#inspire-ns-openapi)
 * [Annex D: Supported languages](#supported-lang)
 
 ## 1. Introduction <a name="introduction"></a>
-This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the newly adopted [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). 
+This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the newly adopted [OGC API - Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). 
 
 Several possible solutions for implementing download services are already endorsed by the INSPIRE Maintenance and Implementation (MIG) group. [Technical guidelines documents](https://inspire.ec.europa.eu/Technical-Guidelines2/Network-Services/41) are available that cover implementations based on ATOM, WFS 2.0, WCS and SOS. 
 
-While all of these approaches use the Web for providing access to geospatial data, the new family of OGC API standards aim to be more developer friendly by requiring less up-front knowledge of the standard involved. The rapid emergence of Web APIs provide a flexible and easily understandable means for access to data. The W3C Data on the Web Best Practices therefore recommends that data be exposed through Web APIs [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs)[DWBP Best Practice 24](https://www.w3.org/TR/dwbp/#APIHttpVerbs). 
-Therefore, this document describes an additional option for the implementation of INSPIRE download services. In preparing the guidance document INSPIRE-specific extensions are minimised. Where several implementation options exist, the guidance describes the specific way of application of the OAPIF and associated standards.
+While all of these approaches use the Web for providing access to geospatial data, the new family of OGC API standards aim to be more developer friendly by requiring less up-front knowledge of the standard involved. The rapid emergence of Web APIs provide a flexible and easily understandable means for access to data, as recommended by the W3C Data on the Web Best Practices [DWBP Best Practice 23](https://www.w3.org/TR/dwbp/#accessAPIs) and [DWBP Best Practice 24](https://www.w3.org/TR/dwbp/#APIHttpVerbs). 
+
+Therefore, this document describes an additional option for the implementation of INSPIRE download services. 
+
+In order to facilitate the use of off-the-shelf software implementing the OGC API - Features standard to meet the requirements in this document, INSPIRE-specific extensions are limited to the absolute minimum. Where several implementation options exist, this document describes the specific way of application of the OAPIF and associated standards to meet the requirements of the INSPIRE Implementing Rules for download services.
 
 ### OGC API - Features - a brief overview
 
 OGC API standards define modular API parts that spatially enable Web APIs in a consistent way. The [OpenAPI specification](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#OpenAPI) is used to define the API building blocks.
 
-OGC API - Features provides API building blocks to create, modify and query features on the Web. OGC API - Features is comprised of multiple parts, each of them is a separate standard. The ["Core"](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html) part specifies the core capabilities and is restricted to fetching features where geometries are represented in the WGS 84 coordinate reference system with axis order longitude/latitude. Additional capabilities that address more advanced needs will be specified in additional parts. 
+OGC API - Features provides API building blocks to create, modify and query features on the Web. OGC API - Features is comprised of multiple parts, each of them is a separate standard. The ["Core"](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html) part specifies the core capabilities and is restricted to retrieving features where geometries are represented in the WGS 84 coordinate reference system with axis order longitude/latitude. Additional capabilities that address more advanced needs will be specified in additional parts. 
 
 By default, every API implementing this standard will provide access to a single dataset. Rather than sharing the data as a complete dataset, the OGC API - Features standards offer direct, fine-grained access to the data at the feature (object) level. Query operations enable clients to retrieve features from the underlying data store based upon simple selection criteria, defined by the client.
 
@@ -42,13 +45,15 @@ For further details about the standard, see the [OGC API - Features GitHub space
 For a description of the main differences between WFS 2.0 and OGC API - Features, see [this section in the Guide on OGC API - Features](https://github.com/opengeospatial/ogcapi-features/blob/master/guide/section_8_WFS_2_0_v_3_0.adoc).
 
 ## 2. Scope <a name="scope"></a>
-This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the [OGC API-Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of several ways of implementing INSPIRE Download services.
+This document proposes a technical approach for implementing the requirements set out in the [INSPIRE Implementing Rules for download services](http://data.europa.eu/eli/reg/2009/976/oj) based on the [OGC API - Features standard](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html). The approach described here is not legally binding and shows one of several ways of implementing INSPIRE Download services.
 ## 3. Conformance <a name="conformance"></a>
 This specification defines the following requirements classes:
 
 - [INSPIRE-pre-defined-dataset-download-OAPIF (mandatory)](#req-pre-defined)
-- [INSPIRE-multilinguality (optional)](#req-multilinguality)
+- [INSPIRE-multilinguality (conditional)<sup>1</sup>](#req-multilinguality)
 - [INSPIRE-OAPIF-GeoJSON (optional)](#req-oapif-json)
+
+<sup>1 </sup>The INSPIRE-multilinguality RC is mandatory for all data sets that contain information in more than one natural language.
 
 Future versions of this specification may include further conformance classes, in particular for 
 - direct access download, and
@@ -58,7 +63,7 @@ The target of all requirements classes are “Web APIs”. Conformance with this
 
 ## 4. Normative references <a name="normative-references"></a>
 
-- **[OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)** - OGC API - Features - Part 1: Core<sup>1</sup>
+- **[OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html)** - OGC API - Features - Part 1: Core<sup>2</sup>
 - **[OpenAPI 3.0](https://swagger.io/docs/specification/about)** - OpenAPI specification v3.0 
 - **[IRs for NS](https://eur-lex.europa.eu/eli/reg/2009/976/oj)** - Regulation 976/2009 implementing Directive 2007/2/EC as regards the Network Services 
 - **[IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089)** - Regulation 1089/2010 implementing Directive 2007/2/EC as regards interoperability of spatial data sets and services 
@@ -68,7 +73,7 @@ The target of all requirements classes are “Web APIs”. Conformance with this
 - **[RFC 6838](https://tools.ietf.org/html/rfc6838)** - Media Type Specifications and Registration Procedures
 - **[RSS 2.0](http://www.rssboard.org/rss-draft-1)** - Really Simple Syndication Specification - RSS 2.0 Specification 
 
-<sup>1</sup> The standard is in the process of being released by the ISO as ISO 19168-1.
+<sup>2</sup> The standard is in the process of being released by the ISO as ISO 19168-1.
 ## 5. Terms and definitions <a name="terms-and-definitions"></a>
 For the purposes of this document, the following terms and definitions apply:
 
@@ -79,16 +84,18 @@ For the purposes of this document, the following terms and definitions apply:
 | distribution (of a data set) | A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above). | [DCAT](https://www.w3.org/TR/vocab-dcat-2/#Class:Distribution)
 | direct access download service | Service that enables copies of spatial data sets, or parts of such sets, to be downloaded. | [INSPIRE](http://inspire.ec.europa.eu/glossary/DownloadService)
 | encoding (rule) | | [ISO 19118]
-| feature | Abstraction of real world phenomena. | [OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_feature)
+| feature | Abstraction of real world phenomena. **NOTE** The concept of a `feature` is synonymous to a `spatial object` in INSPIRE| [OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_feature)
 | feature collection | A set of features from a dataset. | [OAPIF](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_feature_collection)
-| spatial object  | An abstract representation of a real-world phenomenon related to a specific location or geographical area | [INSPIRE](https://inspire.ec.europa.eu/glossary/SpatialObject)
+|feature type| **NOTE* The concept of a `feature type` is synonymous to a `spatial object type` in INSPIRE ||
+[INSPIRE](https://inspire.ec.europa.eu/glossary/SpatialObject)
 | pre-defined data set download service | Service that enables copies of spatial data sets, or parts of such sets, to be downloaded and, where practicable, accessed directly. | [INSPIRE](http://inspire.ec.europa.eu/glossary/DownloadService)
 | Web API | API using an architectural style that is founded on the technologies of the Web. | [DWBP](https://www.w3.org/TR/dwbp)
 
 
-**NOTE** ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
+**NOTE 1** ISO and the European Commission maintain comprehensive terminological databases at the following addresses:
 - [ISO Online browsing platform](https://www.iso.org/obp)
 - [INSPIRE glossary](http://inspire.ec.europa.eu/glossary)
+
 ## 6. Symbols and abbreviated terms <a name="symbols-and-abbreviated-terms"></a>
 | Abbreviation | Term |
 | --- | --- |
@@ -103,24 +110,21 @@ For the purposes of this document, the following terms and definitions apply:
 This section describes the requirements a Web API shall fulfill in order to be compliant with both ‘OGC API – Features’ and INSPIRE requirements for download services.
 ### 7.1. Main principles <a name="main-principles"></a>
 
-- The Web API provides download access to one INSPIRE data set. For example, two data sets (with their own metadata records), one on buildings and one on addresses will have two landing pages:
-    - http://my-org.eu/addresses/
-    - http://my-org.eu/buildings/
-
-NOT http://my-org.eu/oapif/, http://my-org.eu/oapif/collections/addresses,  and http://my-org.eu/oapif/collections/buildings 
+- The Web API provides download access to one INSPIRE data set. For example, two data sets (with their own metadata records), one on buildings and one on addresses will have two landing pages (http://my-org.eu/addresses/ and http://my-org.eu/buildings/) rather than one landing page for the Web API (http://my-org.eu/oapif/) and two feature collections, one for each data set (http://my-org.eu/oapif/collections/addresses and http://my-org.eu/oapif/collections/buildings).
 
 &#x1F538; OPEN QUESTION: Would such an approach be feasible from an implementation point of view?
 
 - The data set is structured into one or several feature collections. Аll feature collections available in one API (under the `/collections` path) are considered to be part of the data set provided by the Web API.
 
-- Every collection contains features of only one spatial object type.
+- Every collection contains features of only one feature type.
 
 | INSPIRE resources | OAPIF resource | Sample path | Document reference(?) |
 | ------------- | ------------- | ------------- |-------------: |
-| Data set (all distributions) | Landing page | http://my-org.eu/addresses/ <br> http://my-org.eu/buildings/ |7.2 API landing page |
+| Data set (all distributions) | Landing page | http://my-org.eu/addresses/ <br> http://my-org.eu/buildings/ | [OAPIF 7.2 API landing page](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_api_landing_page) |
 | Data set description | Feature collections |
-| Spatial object type | Feature collection | http://my-org.eu/addresses/collections/address | 7.14 Feature collection |
-...
+| Spatial object type | Feature collection | http://my-org.eu/addresses/collections/address | [OAPIF 7.14 Feature collection](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_collection_) |
+| Spatial objects | Features | http://my-org.eu/addresses/collections/address/items | [OAPIF 7.15 Features](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_items_) |
+| Spatial object | Feature | http://my-org.eu/addresses/collections/address/items/{featureId} | [OAPIF 7.16 Feature](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_feature_) |
 
 Resource
 Path
@@ -190,7 +194,7 @@ GET
 **TEST**
 
 1. Issue an HTTP GET request to {root}/collections.
-2. Validate that at least one of the links returned in the response has `rel` link parameter `enclosure` (REQ003).
+2. Validate that at least one of the links returned in the response has `rel` link parameter `enclosure`.
 3. For each of the links returned in the response having a `rel` link parameter equal to `enclosure`, issue an HTTP HEAD request to the path given in the `href` link parameter of that link.
 4. For each of the responses:
     - If the HTTP status code is 405 (Method Not Allowed), the test verdict is inclusive.
@@ -234,13 +238,13 @@ GET
 ```json
 {
   "links": [
-	{ "href": "http://data.example.org/collections.json",
+	{ "href": "http://my-org.eu/collections.json",
   	"rel": "self", "type": "application/json", "title": "this document" },
-	{ "href": "http://data.example.org/collections.html",
+	{ "href": "http://my-org.eu/collections.html",
   	"rel": "alternate", "type": "text/html", "title": "this document as HTML" },
 	{ "href": "http://inspire.ec.europa.eu/schemas/bu-core2d/4.0/BuildingsCore2D.xsd",
   	"rel": "describedBy", "type": "application/xml", "title": "The 2D application schema for INSPIRE theme buildings." },
-	{ "href": "http://download.example.org/buildings.gpkg",
+	{ "href": "http://my-org.eu/buildings.gpkg",
   	"rel": "enclosure", "type": "application/geopackage+sqlite3", "title": "Pre-defined data set download (GeoPackage)", "length": 472546 }
   ],
   "collections": [
@@ -257,7 +261,7 @@ GET
     	}
   	},
   	"links": [
-    	{ "href": "http://data.example.org/collections/buildings/items",
+    	{ "href": "http://my-org.eu/collections/buildings/items",
       	"rel": "items", "type": "application/geo+json",
       	"title": "Buildings" },
     	{ "href": "https://creativecommons.org/publicdomain/zero/1.0/",
@@ -275,24 +279,24 @@ GET
 
 | **Requirement** | **/req/pre-defined/spatial-object-type** |
 | --- | --- |
-| A | Every collection SHALL contain features of only one spatial object type
+| A | Every collection SHALL contain features of only one feature type
  
-**NOTE** According to the OAPIF standard a collection could also contain more than one spatial object type.
+**NOTE** According to the OAPIF standard a collection could also contain more than one feature type.
  
 **TEST**
-1. Manual check for every collection, that all its spatial objects belong to the same spatial object type.
+1. Manual check for every collection, that all its features belong to the same feature type.
 
 | **Requirement** | **/req/pre-defined/collection-naming** |
 | --- | --- |
-| A | For each `collection` that provides data that is harmonised according to the [IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089), the name of the collection SHALL be the language-neutral name of the spatial object type as specified in the [IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089). |
+| A | For each `collection` that provides data that is harmonised according to the [IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089), the name of the collection SHALL be the language-neutral name of the feature type as specified in the [IRs for ISDSS](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32010R1089). |
 
 **TEST** 
 1. Check all collection names for a recognised language neutral name
 2. If no language-neutral name is available - MANUAL TEST: Check that the collections have not yet been harmonised.
 
-| **Requirement** | **/req/pre-defined/license** |
+| **Requirement** | **/req/pre-defined/licence** |
 | --- | --- |
-| A | Link to the licensing information SHALL be provided for the data set made available through the Web API. |
+| A | The Web API shall contain a link to the licence of the data set made available. |
 
 | **Recommendation** | **/rec/pre-defined/license-openapi** |
 | --- | --- |
@@ -304,6 +308,7 @@ GET
 | Target type | Web API |
 | Dependency | [INSPIRE-pre-defined-dataset-download-OAPIF](#req-pre-defined)  |
 
+This requirements class is mandatory for all data sets that contain information in more than one natural language.
 
 #### 7.3.1. INSPIRE-specific requirements
 ##### Internationalisation: request and response language
@@ -339,7 +344,7 @@ The requirements from the [IRs for NS] to support requests in different natural 
 
 ##### Internationalization: supported languages
 
-&#x1F538; OPEN QUESTION: Would the proposed approach based on HTTP standards be easily implementable by solutions. 
+&#x1F538; OPEN QUESTION: Would the proposed approach based on HTTP standards be easily implementable by existing solutions. 
 
 [RFC 2616](https://www.w3.org/Protocols/rfc2616) does not define what such a response body exactly should look like, see also Annex B, and no other existing specifications have been identified that define this. As one of the principles in this specification is not to have any INSPIRE-specific extensions or requirements, this specification therefore does not give a stronger recommendation. This specification may be updated when the response body returned with HTTP status code 406 is standardised.
 
@@ -424,24 +429,9 @@ This requirements class is relevant when providing access to INSPIRE data encode
 - [SO2] [Format for 406 Not Acceptable payload?](https://stackoverflow.com/questions/50102277/format-for-406-not-acceptable-payload)
 
 # Annex A: Abstract Test Suite <a name="ats"></a>
-**NOTE** Detailed ATS will be developed in the next version of the document.
+**NOTE** Detailed ATS will be developed in the next version of the document, based on the descriptions of tests included in the main body of the specification for each requirement.
 # Annex B: Mapping the requirements from the IRs to the OGC-API Features standard (and extensions) <a name="ir2oapif"></a>
-## Predefined access download service
-
-| Service operation | Mapping to OAPIF|
-| ------------- |:-------------:|
-| 1. Get Download Service Metadata | |
-| 2. Get Spatial Dataset | |
-| 3. Describe Spatial Dataset | |
-| 4. Link Download Service | |
-
-## Direct access download service
-
-| Service operation | Mapping to OAPIF|
-| ------------- |:-------------:|
-| 1. Get Spatial Object | |
-| 2. Describe Spatial Object Type | |
-| 3. Link Download Service | |
+**NOTE** A [draft mapping]() between the requirements from the IRs to the OGC-API Features standard has been proposed and discussed in the INSPIRE MIG-T. This section will be completed based on this discussion paper once this specification is stable. 
 
 # Annex C: Mapping between INSPIRE NS Metadata elements and OpenAPI definition fields  <a name="inspire-ns-openapi"></a>
 
